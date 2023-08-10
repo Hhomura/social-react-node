@@ -1,0 +1,13 @@
+.container_loading{
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.838);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container_loading h1{
+    color: white;
+}

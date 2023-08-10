@@ -1,0 +1,60 @@
+.container_navbar{
+    width: 100%;
+    margin: 0 auto;
+    position: fixed;
+    background-color: black;
+    border-bottom: 4px solid #ffffff;
+    display: flex;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    z-index: 5;
+    
+}
+
+.container_logo{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-grow: 2;
+    padding: 5px;
+}
+
+.container_logo > img{
+    margin-left: 100px ;
+    height: 70px;
+}
+
+.container_links{
+    flex-grow: 3;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-right: 15px;
+}
+
+.links > a{
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 10px;
+    padding-left: 30px;
+    padding-right: 30px;
+    margin-left: 20px;
+    border-radius: 10px;
+    transition: 0.2s;
+}
+
+.links > a:hover{
+    border-bottom: 6px solid blue;
+}
+
+.container_icon_profile{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 0.25;
+}
+
+.icon_profile > svg{
+    font-size: 40px;
+}

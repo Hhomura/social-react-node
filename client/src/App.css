@@ -1,0 +1,32 @@
+#root{
+  min-height: 100vh;
+  background-color: black;
+}
+
+body{
+  margin: 0;
+  padding: 0;
+}
+
+h1{
+  margin: 0;
+}
+
+.parent{
+  display: flex;
+  position: relative;
+}
+
+.parent_sub{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.parent > div{
+  margin-left: 300px;
+}
+
+.parent_user > div{
+  margin-top: 5%;
+}

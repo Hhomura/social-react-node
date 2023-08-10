@@ -1,0 +1,88 @@
+.container_user{
+    width: 100%;
+    height: 100%;
+    padding-left: 200px;
+    padding-right: 200px;
+    padding-top: 150px;
+}
+.container_user_adm{
+    width: 100%;
+    height: 100%;
+    padding-left: 100px;
+    padding-right: 100px;
+    padding-top: 50px;
+}
+
+.container_imgs_user{
+    text-align: center;
+    position: relative;
+    border-bottom: 4px solid white;
+}
+
+.img_background > img{
+    cursor: pointer;
+    height: 400px;
+    width: 90%;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom: 4px solid white;
+    border-left: 4px solid white;
+}
+
+.img_profile{
+    bottom: 70px;
+    position: relative;
+    margin-left: 30px;
+    display: flex;
+    align-items: center;
+    transition: 0.4s;
+}
+
+.img_profile > img{
+    cursor: pointer;
+    height: 250px;
+    width: 250px;
+    border-radius: 50%;
+    border: 5px solid white;
+}
+
+.img_profile > div{
+    width: 80%;
+    margin-left: 50px;
+    margin-right: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.img_profile > div > div{
+    text-align: start;
+    padding-top: 10px;
+}
+.img_profile > div > h2{
+    font-size: 30px;
+    
+}
+
+.img_profile_button{
+    background-color: transparent;
+    border: 2px solid white;
+    border-radius: 10px;
+    padding: 20px;
+    transition: 0.2s;
+}
+
+.img_profile_button a{
+    padding: 15px;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.img_profile_button:hover{
+    background-color: white;
+    cursor: pointer;
+}
+.img_profile_button:hover a{
+    color: black;
+}

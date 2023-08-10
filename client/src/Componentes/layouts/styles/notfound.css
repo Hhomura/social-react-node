@@ -1,0 +1,11 @@
+.container_notfound{
+    background-color: red;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container_notfound h1{
+    color: white-;
+}
