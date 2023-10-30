@@ -27,6 +27,7 @@ app.use('/user', userR);
 //Rota das Imagens
 app.use('/profile', express.static(path.resolve(__dirname)));
 app.use('/background', express.static(path.resolve(__dirname)));
+
 //Home
 app.get('/', (req, res) =>{
     res.send("<h1> Home Page Servidor </h1>")

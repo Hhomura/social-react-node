@@ -46,11 +46,9 @@ export default (() => {
 
   return (
     <>
-
       {msg && (
         <MessageAlert message={msg} status={status} />
       )}
-
       {localStorage.getItem('userType') === '1' ? (
         <div className='parent'>
           <Sidebar handleLogout={handleLogOut} />

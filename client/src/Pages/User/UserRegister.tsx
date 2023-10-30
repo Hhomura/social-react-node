@@ -71,6 +71,12 @@ export default (() => {
         const removeuProfile = localStorage.getItem('removeProfile');
         const removeuBackground = localStorage.getItem('removeBackground');
 
+        if(removeuProfile == 'true') setProfile('')
+        if(removeuBackground == 'true') setBackground('')
+
+        console.log(removeuProfile)
+        console.log(profile)
+
         if (!validarEmail(email)) {
             window.scrollTo(0, 0);
             setStatus('error');
@@ -99,9 +105,6 @@ export default (() => {
             formData.append('adm', adm.toString());
             formData.append('profile', profile);
             formData.append('background', background);
-            formData.append('removeuProfile', removeuProfile != null? removeuProfile: "");
-            formData.append('removeuBackground', removeuBackground != null? removeuBackground: "");
-            
             await Api.post('/user/register',
                 formData,
                 {
@@ -122,8 +125,7 @@ export default (() => {
         } catch (error: any) {
             console.log('Erro:', error);
         }
-
-
+        
     }
 
     return (

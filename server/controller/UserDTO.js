@@ -37,182 +37,22 @@ module.exports = {
 
         const senha = hash;
 
-        if (pathProfile && pathBackground) {
-
-          if (req.body.removeuBackground == 'true' && req.body.removeuProfile == 'true') {
-            user.create({
-              nome: req.body.nome,
-              apelido: req.body.apelido,
-              email: req.body.email,
-              password: senha,
-              descricao: req.body.descricao,
-              profile_url: '',
-              background: '',
-              adm: req.body.adm
-            })
-              .then(() => {
-                res.status(200).json({ msg: "Usuário Registrado" })
-              })
-              .catch((error) => {
-                res.status(401).json("Erro no cadastro: " + error);
-              });
-          }
-
-          if (req.body.removeuBackground == 'false' && req.body.removeuProfile == 'false') {
-            user.create({
-              nome: req.body.nome,
-              apelido: req.body.apelido,
-              email: req.body.email,
-              password: senha,
-              descricao: req.body.descricao,
-              profile_url: pathProfile,
-              background: pathBackground,
-              adm: req.body.adm
-            })
-              .then(() => {
-                res.status(200).json({ msg: "Usuário Registrado" })
-              })
-              .catch((error) => {
-                res.status(401).json("Erro no cadastro: " + error);
-              });
-          }
-
-          if (req.body.removeuBackground == 'false' && req.body.removeuProfile == 'true') {
-            user.create({
-              nome: req.body.nome,
-              apelido: req.body.apelido,
-              email: req.body.email,
-              password: senha,
-              descricao: req.body.descricao,
-              profile_url: '',
-              background: pathBackground,
-              adm: req.body.adm
-            })
-              .then(() => {
-                res.status(200).json({ msg: "Usuário Registrado" })
-              })
-              .catch((error) => {
-                res.status(401).json("Erro no cadastro: " + error);
-              });
-          }
-
-          if (req.body.removeuBackground == 'true' && req.body.removeuProfile == 'false') {
-            user.create({
-              nome: req.body.nome,
-              apelido: req.body.apelido,
-              email: req.body.email,
-              password: senha,
-              descricao: req.body.descricao,
-              profile_url: pathProfile,
-              background: '',
-              adm: req.body.adm
-            })
-              .then(() => {
-                res.status(200).json({ msg: "Usuário Registrado" })
-              })
-              .catch((error) => {
-                res.status(401).json("Erro no cadastro: " + error);
-              });
-          }
-
-        } else if (pathBackground = '' && pathProfile) {
-
-          if (req.body.removeuProfile == 'true') {
-            user.create({
-              nome: req.body.nome,
-              apelido: req.body.apelido,
-              email: req.body.email,
-              password: senha,
-              descricao: req.body.descricao,
-              profile_url: '',
-              background: '',
-              adm: req.body.adm
-            })
-              .then(() => {
-                res.status(200).json({ msg: "Usuário Registrado Sem Background" })
-              })
-              .catch((error) => {
-                res.status(401).json("Erro no cadastro: " + error);
-              });
-          }
-
-          if (req.body.removeuProfile == 'false') {
-            user.create({
-              nome: req.body.nome,
-              apelido: req.body.apelido,
-              email: req.body.email,
-              password: senha,
-              descricao: req.body.descricao,
-              profile_url: pathProfile,
-              background: '',
-              adm: req.body.adm
-            })
-              .then(() => {
-                res.status(200).json({ msg: "Usuário Registrado Sem Background" })
-              })
-              .catch((error) => {
-                res.status(401).json("Erro no cadastro: " + error);
-              });
-          }
-
-        } else if (pathBackground && pathProfile == '') {
-
-          if (req.body.removeuBackground == 'true') {
-            user.create({
-              nome: req.body.nome,
-              apelido: req.body.apelido,
-              email: req.body.email,
-              password: senha,
-              descricao: req.body.descricao,
-              profile_url: '',
-              background: '',
-              adm: req.body.adm
-            })
-              .then(() => {
-                res.status(200).json({ msg: "Usuário Registrado Sem Profile" })
-              })
-              .catch((error) => {
-                res.status(401).json("Erro no cadastro: " + error);
-              });
-          }
-          if (req.body.removeuProfile == 'false') {
-            user.create({
-              nome: req.body.nome,
-              apelido: req.body.apelido,
-              email: req.body.email,
-              password: senha,
-              descricao: req.body.descricao,
-              profile_url: '',
-              background: pathBackground,
-              adm: req.body.adm
-            })
-              .then(() => {
-                res.status(200).json({ msg: "Usuário Registrado Sem Profile" })
-              })
-              .catch((error) => {
-                res.status(401).json("Erro no cadastro: " + error);
-              });
-          }
-
-        } else {
-
-          user.create({
-            nome: req.body.nome,
-            apelido: req.body.apelido,
-            email: req.body.email,
-            password: senha,
-            descricao: req.body.descricao,
-            profile_url: '',
-            background: '',
-            adm: req.body.adm
+        user.create({
+          nome: req.body.nome,
+          apelido: req.body.apelido,
+          email: req.body.email,
+          password: senha,
+          descricao: req.body.descricao,
+          profile_url: pathProfile,
+          background: pathBackground,
+          adm: req.body.adm
+        })
+          .then(() => {
+            res.status(200).json({ msg: "Usuário Registrado" })
           })
-            .then(() => {
-              res.status(200).json({ msg: "Usuário Registrado Sem fotos" })
-            })
-            .catch((error) => {
-              res.status(401).json("Erro no cadastro: " + error);
-            });
-        }
+          .catch((error) => {
+            res.status(401).json("Erro no cadastro: " + error);
+          });
       });
     });
   },

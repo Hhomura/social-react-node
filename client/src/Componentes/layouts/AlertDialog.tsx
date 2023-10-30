@@ -7,6 +7,7 @@ interface props {
     handleDelete: any,
     handleCloseDialog: any
 }
+
 export default (({ message, handleDelete, handleCloseDialog }: props) => {
 
     return (

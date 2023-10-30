@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react'
-import background2 from '../../../public/background2.jpg'
+import background2 from '../../../public/background.jpg'
 import profileDefault from '../../../public/profile-picture.png'
 import '../../Pages/styles/profile.css'
 //import { useNavigate } from 'react-router-dom'
