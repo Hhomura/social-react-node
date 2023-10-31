@@ -11,6 +11,7 @@ interface props {
     placeholder: string,
     handleOnChange: any,
     value?: any
+    setRemove: any
 }
 
 export default ((prop: props) => {
@@ -35,8 +36,10 @@ export default ((prop: props) => {
     }
 
     const inputRemoveClick = () =>{
+        prop.setRemove('removeu')
         setRemove(true);
         localStorage.setItem('removeProfile', 'true');
+        console.log(localStorage.getItem('removeProfile'))
         setConfirm(!confirm)
         //inputRef.current?.click();
     }

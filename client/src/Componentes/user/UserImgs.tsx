@@ -22,7 +22,7 @@ interface props {
 
 export default ((prop: props) => {
 
-    const {setAdm} = useContext(AuthContext)
+    const { setAdm } = useContext(AuthContext)
     const history = useNavigate();
     //const history = useNavigate();
     const { setStatus, setMsg } = useContext(AuthContext)
@@ -99,7 +99,7 @@ export default ((prop: props) => {
     }
 
     async function deleteData() {
-       await Api.get(`/user/delete/${localStorage.getItem('userId')}`).then((response) => {
+        await Api.get(`/user/delete/${localStorage.getItem('userId')}`).then((response) => {
             setStatus('success');
             setMsg(response.data.msg)
 
@@ -121,44 +121,19 @@ export default ((prop: props) => {
     async function updateData(e: any) {
         e.preventDefault();
 
-        const removeuProfile = localStorage.getItem('removeProfile');
-        const removeuBackground = localStorage.getItem('removeBackground');
-
-        console.log(removeuProfile)
-        console.log(removeuBackground)
+        console.log(profile)
+        console.log(background)
 
         try {
 
             const formData = new FormData();
-
             formData.append('nome', nome != null ? nome : "");
             formData.append('apelido', apelido != null ? apelido : "");
             formData.append('descricao', descricao != null ? descricao : "");
+            formData.append('profile', profile != null ? profile : "")
+            formData.append('background', background != null ? background : "")
 
-            if (removeuProfile) {
-                if (removeuProfile == 'true') {
-                    formData.append('profile', "");
-                } else {
-                    formData.append('profile', profile != null ? profile : "");
-                }
-            } else {
-                formData.append('profile', "");
-            }
-
-            if (removeuBackground) {
-                if (removeuBackground == 'true') {
-                    formData.append('background', "");
-                } else {
-                    formData.append('background', background != null ? background : "");
-                }
-            } else {
-                formData.append('background', "");
-            }
-
-            formData.append('removeuProfile', removeuProfile != null ? removeuProfile : "");
-            formData.append('removeuBackground', removeuBackground != null ? removeuBackground : "");
-
-            await Api.post(`/user/update/${localStorage.getItem('userId')}`,
+            await Api.put(`/user/update/${localStorage.getItem('userId')}`,
                 formData,
                 {
                     headers: {
@@ -166,13 +141,10 @@ export default ((prop: props) => {
                     },
                 }
             ).then((response) => {
-
-                localStorage.removeItem('removeProfile');
-                localStorage.removeItem('removeBackground');
-
-                console.log(response.data.msg);
+                localStorage.removeItem('removeProfile')
+                localStorage.removeItem('removeBackground')
+                //console.log(response.data.msg);
                 console.log(response)
-
                 setStatus('success');
                 setMsg('Registro atualizado sucesso!')
                 setEditForm(!editForm);
@@ -182,10 +154,10 @@ export default ((prop: props) => {
                 setStatus('error');
                 setMsg('Erro ao Atualizar!')
             })
-
         } catch (error: any) {
             console.log('Erro:', error);
         }
+
     }
 
     return (
@@ -238,7 +210,7 @@ export default ((prop: props) => {
                     <button className='img_profile_button' onClick={editFormActive}>
                         <a>Cancelar</a>
                     </button>
-                    <Form handleApelido={handleApelido} handleBackground={handleBackground} handleDescricao={handleDescricao} handleNome={handleNome} handleProfile={handleProfile} submitMethod={updateData} nome={nome} apelido={apelido} descricao={descricao} background={background} profile={profile} updateActive={editForm} handleDelete={showDialogConfirm} />
+                    <Form removeProfile={setProfile} removeBackground={setBackground} handleApelido={handleApelido} handleBackground={handleBackground} handleDescricao={handleDescricao} handleNome={handleNome} handleProfile={handleProfile} submitMethod={updateData} nome={nome} apelido={apelido} descricao={descricao} background={background} profile={profile} updateActive={editForm} handleDelete={showDialogConfirm} />
                 </>
             )}
         </>

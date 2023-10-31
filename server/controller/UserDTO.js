@@ -1,11 +1,9 @@
 const user = require('../models/User');
 const bcrypt = require('bcryptjs');
-const { use } = require('../routers/RouterUser');
 const jwt = require('jsonwebtoken');
 const fs = require('fs')
 
 function convertURL(url) {
-  // Usa a função replace com uma expressão regular para substituir os caracteres de escape.
   if (url != null) {
     const convertedURL = url.replace(/\\/g, '/');
     return convertedURL;
@@ -34,9 +32,7 @@ module.exports = {
           console.log(`Erro ao gerar hash: ${erro}`);
           return;
         }
-
         const senha = hash;
-
         user.create({
           nome: req.body.nome,
           apelido: req.body.apelido,
@@ -58,9 +54,21 @@ module.exports = {
   },
 
   deleteUser: (req, res) => {
-    user.destroy({where: {id: req.params.id}}).then(() =>{
-      res.status(200).json({msg: "Usuário Deletado com Sucesso!" })
-    }).catch((error) =>{
+
+    user.findOne({ where: { id: req.params.id } }).then((userUpdate) => {
+      if (userUpdate.profile_url != '') {
+        fs.unlinkSync(convertURL(userUpdate.profile_url))
+      }
+      if (userUpdate.background != '') {
+        fs.unlinkSync(convertURL(userUpdate.background))
+      }
+    }).catch((error) => {
+      console.log(error)
+    })
+
+    user.destroy({ where: { id: req.params.id } }).then(() => {
+      res.status(200).json({ msg: "Usuário Deletado com Sucesso!" })
+    }).catch((error) => {
       res.status(400).json({ msg: 'Error ao Deletar Usuário: ' + error })
     })
   }
@@ -103,6 +111,8 @@ module.exports = {
 
     var pathProfile = '';
     var pathBackground = '';
+    var profile = req.body.profile;
+    var background = req.body.background;
 
     console.log(req.body)
 
@@ -113,234 +123,32 @@ module.exports = {
       pathBackground = req.files['background'][0].path;
     }
 
-    console.log("Profile: " + pathProfile)
-    console.log("Background: " + pathBackground)
-    console.log(req.body.removeuProfile)
-    console.log(req.body.removeuBackground)
-
-    if (pathBackground && pathProfile) {
-
-      user.findOne({ where: { id: req.params.id } }).then((userUpdate) => {
-        if (userUpdate.profile_url != '') {
-          fs.unlinkSync(convertURL(userUpdate.profile_url))
-        }
-        if (userUpdate.background != '') {
-          fs.unlinkSync(convertURL(userUpdate.background))
-        }
-      }).catch((error) => {
-        console.log(error)
-      })
-
-      user.update({
-        nome: req.body.nome,
-        apelido: req.body.apelido,
-        descricao: req.body.descricao,
-        profile_url: pathProfile,
-        background: pathBackground
-      }, { where: { id: req.params.id } }).then((data) => {
-
-        res.status(200).json({ user: data, msg: "Atualizou com sucesso todos os dados" })
-      }).catch((error) => {
-        res.status(400).json({ msg: 'Error: ' + error })
-      })
-
-    }
-
-    //Se não Alterou Foto de BAckground
-    else if (pathBackground == '' && pathProfile) {
-
-      if (req.body.removeuBackground == 'true') {
-
-        //Apagar Antigo profile e Remover Background
-        user.findOne({ where: { id: req.params.id } }).then((userUpdate) => {
-          if (userUpdate.profile_url != '') {
-            fs.unlinkSync(convertURL(userUpdate.profile_url))
-          }
-          if (userUpdate.background != '') {
-            fs.unlinkSync(convertURL(userUpdate.background))
-          }
-        }).catch((error) => {
-          console.log(error)
-        })
-
-        user.update({
-          nome: req.body.nome,
-          apelido: req.body.apelido,
-          descricao: req.body.descricao,
-          profile_url: pathProfile,
-          background: ''
-        }, { where: { id: req.params.id } }).then((data) => {
-          res.status(200).json({ user: data, msg: "Salvo com sucesso, removeu background" })
-        }).catch((error) => {
-          res.status(400).json({ msg: 'Error: ' + error })
-        })
+    user.findOne({ where: { id: req.params.id } }).then((userUpdate) => {
+      if (userUpdate.profile_url != '' && req.body.profile == 'removeu') {
+        fs.unlinkSync(convertURL(userUpdate.profile_url))
       }
-      if (req.body.removeuBackground == 'false') {
-
-        //Apagar Antigo profile
-        user.findOne({ where: { id: req.params.id } }).then((userUpdate) => {
-          if (userUpdate.profile_url != '') {
-            fs.unlinkSync(convertURL(userUpdate.profile_url))
-          }
-        }).catch((error) => {
-          console.log(error)
-        })
-
-        user.update({
-          nome: req.body.nome,
-          apelido: req.body.apelido,
-          descricao: req.body.descricao,
-          profile_url: pathProfile,
-        }, { where: { id: req.params.id } }).then((data) => {
-          res.status(200).json({ user: data, msg: "Salvo com sucesso, não alterou background" })
-        }).catch((error) => {
-          res.status(400).json({ msg: 'Error: ' + error })
-        })
+      if (userUpdate.background != '' && req.body.background == 'removeu') {
+        fs.unlinkSync(convertURL(userUpdate.background))
       }
-      //Se não Alterou Foto de Perfil
-    } else if (pathBackground && pathProfile == '') {
+    }).catch((error) => {
+      console.log(error)
+    })
 
-      if (req.body.removeuProfile == 'true') {
+    if(profile == 'removeu') profile = ''
+    if(background == 'removeu') background = ''
 
-        //REMOVER profile e Apagar antigo Background
-        user.findOne({ where: { id: req.params.id } }).then((userUpdate) => {
-          if (userUpdate.profile_url != '') {
-            fs.unlinkSync(convertURL(userUpdate.profile_url))
-          }
-          if (userUpdate.background != '') {
-            fs.unlinkSync(convertURL(userUpdate.background))
-          }
-        }).catch((error) => {
-          console.log(error)
-        })
+    user.update({
+      nome: req.body.nome,
+      apelido: req.body.apelido,
+      descricao: req.body.descricao,
+      profile_url: pathProfile != '' ? pathProfile : profile,
+      background: pathBackground != '' ? pathBackground : background
+    }, { where: { id: req.params.id } }).then((data) => {
 
-        user.update({
-          nome: req.body.nome,
-          apelido: req.body.apelido,
-          descricao: req.body.descricao,
-          background: pathBackground,
-          profile_url: ''
-        }, { where: { id: req.params.id } }).then((data) => {
-          res.status(200).json({ user: data, msg: "Salvo com sucesso, removeu profile" })
-        }).catch((error) => {
-          res.status(400).json({ msg: 'Error: ' + error })
-        })
-      }
-      if (req.body.removeuProfile == 'false') {
+      res.status(200).json({ user: data, msg: "Atualizou com sucesso todos os dados" })
+    }).catch((error) => {
+      res.status(400).json({ msg: 'Error: ' + error })
+    })
 
-        //Apagar Antigo profile e Remover Background
-        user.findOne({ where: { id: req.params.id } }).then((userUpdate) => {
-          if (userUpdate.background != '') {
-            fs.unlinkSync(convertURL(userUpdate.background))
-          }
-        }).catch((error) => {
-          console.log(error)
-        })
-
-        user.update({
-          nome: req.body.nome,
-          apelido: req.body.apelido,
-          descricao: req.body.descricao,
-          background: pathBackground
-        }, { where: { id: req.params.id } }).then((data) => {
-          res.status(200).json({ user: data, msg: "Salvo com sucesso, não alterou profile" })
-        }).catch((error) => {
-          res.status(400).json({ msg: 'Error: ' + error })
-        })
-      }
-
-      //Se não Alterou Ambas as Fotos
-    } else if (pathBackground == '' && pathProfile == '') {
-
-      if (req.body.removeuProfile == 'true' && req.body.removeuBackground == 'true') {
-
-        //Apagar Antigo profile e Remover Background
-        user.findOne({ where: { id: req.params.id } }).then((userUpdate) => {
-          if (userUpdate.profile_url != '') {
-            fs.unlinkSync(convertURL(userUpdate.profile_url))
-          }
-          if (userUpdate.background != '') {
-            fs.unlinkSync(convertURL(userUpdate.background))
-          }
-        }).catch((error) => {
-          console.log(error)
-        })
-
-        user.update({
-          nome: req.body.nome,
-          apelido: req.body.apelido,
-          descricao: req.body.descricao,
-          background: '',
-          profile_url: ''
-        }, { where: { id: req.params.id } }).then((data) => {
-          console.log(data)
-          res.status(200).json({ user: data, msg: "Atualizou com Sucesso, Removeu As duas imagens" })
-        }).catch((error) => {
-          res.status(400).json({ msg: 'Error: ' + error })
-        })
-      }
-
-      if (req.body.removeuProfile == 'false' && req.body.removeuBackground == 'false') {
-        user.update({
-          nome: req.body.nome,
-          apelido: req.body.apelido,
-          descricao: req.body.descricao,
-        }, { where: { id: req.params.id } }).then((data) => {
-          console.log(data)
-          res.status(200).json({ user: data, msg: "Atualizou com Sucesso, Não Removeu nenhuma imagem" })
-        }).catch((error) => {
-          res.status(400).json({ msg: 'Error: ' + error })
-        })
-      }
-
-      if (req.body.removeuProfile == 'false' && req.body.removeuBackground == 'true') {
-
-        //Remover Background
-        user.findOne({ where: { id: req.params.id } }).then((userUpdate) => {
-          if (userUpdate.background != '') {
-            fs.unlinkSync(convertURL(userUpdate.background))
-          }
-        }).catch((error) => {
-          console.log(error)
-        })
-
-        user.update({
-          nome: req.body.nome,
-          apelido: req.body.apelido,
-          descricao: req.body.descricao,
-          background: '',
-        }, { where: { id: req.params.id } }).then((data) => {
-          console.log(data)
-          res.status(200).json({ user: data, msg: "Atualizou com Sucesso, Removeu Apenas Background, Não alterou Profile" })
-        }).catch((error) => {
-          res.status(400).json({ msg: 'Error: ' + error })
-        })
-      }
-      if (req.body.removeuProfile == 'true' && req.body.removeuBackground == 'false') {
-
-        //Apagar Antigo profile e Remover Background
-        user.findOne({ where: { id: req.params.id } }).then((userUpdate) => {
-
-          if (userUpdate.profile_url != '') {
-            fs.unlinkSync(convertURL(userUpdate.profile_url))
-          }
-        }).catch((error) => {
-          console.log(error)
-        })
-
-        user.update({
-          nome: req.body.nome,
-          apelido: req.body.apelido,
-          descricao: req.body.descricao,
-          profile_url: ''
-        }, { where: { id: req.params.id } }).then((data) => {
-          console.log(data)
-          res.status(200).json({ user: data, msg: "Atualizou com Sucesso, Removeu Apenas Profile, não alterou Background" })
-        }).catch((error) => {
-          res.status(400).json({ msg: 'Error: ' + error })
-        })
-      }
-
-    }
   }
 }

@@ -10,7 +10,8 @@ interface props {
     name: string,
     placeholder: string,
     handleOnChange: any,
-    value?: any
+    value?: any,
+    setRemmove: any
 }
 
 export default ((prop: props) => {
@@ -43,6 +44,7 @@ export default ((prop: props) => {
     }
 
     const inputRemoveClick = () =>{
+        prop.setRemmove('removeu')
         setRemove(true);
         localStorage.setItem('removeBackground', 'true');
         setConfirm(!confirm)

@@ -129,6 +129,6 @@ export default (() => {
     }
 
     return (
-        <Form handleApelido={handleApelido} handleBackground={handleBackground} handleConPassword={handleConPassword} handleDescricao={handleDescricao} handleEmail={handleEmail} handleNome={handleNome} handlePassword={handlePassword} handleProfile={handleProfile} submitMethod={submitRegister} handleDelete={() => {}}/>
+        <Form handleApelido={handleApelido} handleBackground={handleBackground} handleConPassword={handleConPassword} handleDescricao={handleDescricao} handleEmail={handleEmail} handleNome={handleNome} handlePassword={handlePassword} handleProfile={handleProfile} submitMethod={submitRegister} handleDelete={() => {}} removeBackground={setBackground} removeProfile={setProfile}/>
     )
 })

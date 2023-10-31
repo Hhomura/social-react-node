@@ -24,9 +24,11 @@ interface props {
     profile?: any
     background?: any
     updateActive?: boolean
+    removeBackground: any
+    removeProfile: any
 }
 
-export default (({ submitMethod, handleNome, handleApelido, handleBackground, handleConPassword, handleDescricao, handleEmail, handlePassword, handleProfile, updateActive, nome, apelido, descricao, handleDelete }: props) => {
+export default (({ submitMethod, handleNome, handleApelido, handleBackground, handleConPassword, handleDescricao, handleEmail, handlePassword, handleProfile, updateActive, nome, apelido, descricao, handleDelete, removeBackground, removeProfile}: props) => {
 
 
     const [profileOfc, setProfileOfc] = useState('');
@@ -59,8 +61,8 @@ export default (({ submitMethod, handleNome, handleApelido, handleBackground, ha
                     <>
                         {!updateActive ? (
                             <form className='container_form' onSubmit={submitMethod} encType="multipart/form-data">
-                                <InputBackground text='background' label='Foto de Fundo' placeholder='' handleOnChange={handleBackground} name='background' type='file' />
-                                <InputProfile text='profile' label='Foto de Perfil' placeholder='' handleOnChange={handleProfile} name='profile' type='file' />
+                                <InputBackground setRemmove={removeBackground} text='background' label='Foto de Fundo' placeholder='' handleOnChange={handleBackground} name='background' type='file' />
+                                <InputProfile setRemove={removeProfile} text='profile' label='Foto de Perfil' placeholder='' handleOnChange={handleProfile} name='profile' type='file' />
                                 <h2 style={{ fontStyle: 'normal', }}>Cadastro ADM</h2>
                                 <Input text='Nome' label='Nome' placeholder='Nome do Usuário' handleOnChange={handleNome} name='
 Nome' type='text' />
@@ -75,8 +77,8 @@ ConfirmPassword' type='password' />
                         ) : (
                             <>
                                 <form className='container_form' onSubmit={submitMethod} encType="multipart/form-data">
-                                    <InputBackground text='background' label='Foto de Fundo' placeholder='' handleOnChange={handleBackground} name='background' type='file' value={backgroundOfc} />
-                                    <InputProfile text='profile' label='Foto de Perfil' placeholder='' handleOnChange={handleProfile} name='profile' type='file' value={profileOfc} />
+                                    <InputBackground setRemmove={removeBackground} text='background' label='Foto de Fundo' placeholder='' handleOnChange={handleBackground} name='background' type='file' value={backgroundOfc} />
+                                    <InputProfile setRemove={removeProfile} text='profile' label='Foto de Perfil' placeholder='' handleOnChange={handleProfile} name='profile' type='file' value={profileOfc} />
                                     <h2 style={{ fontStyle: 'normal', }}>Atualizar Dados ADM</h2>
                                     <Input text='Nome' label='Nome' placeholder='Nome do Usuário' handleOnChange={handleNome} name='
 Nome' type='text' value={nome} />
@@ -90,8 +92,8 @@ Nome' type='text' value={nome} />
                     <>
                         {!updateActive ? (
                             <form className='container_form' onSubmit={submitMethod} encType="multipart/form-data">
-                                <InputBackground text='Background' label='Foto de Fundo' placeholder='' handleOnChange={handleBackground} name='Background' type='file' />
-                                <InputProfile text='Profile' label='Foto de Perfil' placeholder='' handleOnChange={handleProfile} name='Profile' type='file' />
+                                <InputBackground setRemmove={removeBackground} text='Background' label='Foto de Fundo' placeholder='' handleOnChange={handleBackground} name='Background' type='file' />
+                                <InputProfile setRemove={removeProfile} text='Profile' label='Foto de Perfil' placeholder='' handleOnChange={handleProfile} name='Profile' type='file' />
                                 <h2 style={{ fontStyle: 'normal', }}>Cadastro Usuário</h2>
                                 <Input text='Nome' label='Nome' placeholder='Nome do Usuário' handleOnChange={handleNome} name='
                 Nome' type='text' />
@@ -110,8 +112,8 @@ Nome' type='text' value={nome} />
                         ) : (
                             <>
                                 <form className='container_form' onSubmit={submitMethod} encType="multipart/form-data">
-                                    <InputBackground text='Background' label='Foto de Fundo' placeholder='' handleOnChange={handleBackground} name='Background' type='file' value={backgroundOfc} />
-                                    <InputProfile text='Profile' label='Foto de Perfil' placeholder='' handleOnChange={handleProfile} name='Profile' type='file' value={profileOfc} />
+                                    <InputBackground setRemmove={removeBackground} text='Background' label='Foto de Fundo' placeholder='' handleOnChange={handleBackground} name='Background' type='file' value={backgroundOfc} />
+                                    <InputProfile setRemove={removeProfile} text='Profile' label='Foto de Perfil' placeholder='' handleOnChange={handleProfile} name='Profile' type='file' value={profileOfc} />
                                     <h2 style={{ fontStyle: 'normal', }}>Atualizar Dados Usuário</h2>
                                     <Input text='Nome' label='Nome' placeholder='Nome do Usuário' handleOnChange={handleNome} name='
                     Nome' type='text' value={nome} />

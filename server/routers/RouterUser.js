@@ -21,7 +21,7 @@ router.post('/register', cpUpload, (req, res) => {
      userDTO.addUser(req, res);
 });
 
-router.post('/update/:id', cpUpload, (req, res) => {
+router.put('/update/:id', cpUpload, (req, res) => {
      userDTO.updateUser(req, res);
 });
 
