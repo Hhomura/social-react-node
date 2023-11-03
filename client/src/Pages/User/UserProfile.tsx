@@ -11,6 +11,7 @@ export default (() => {
 
     const { setAdm } = useContext(AuthContext)
     const history = useNavigate();
+
     const { setStatus, setMsg } = useContext(AuthContext)
     //EditForm
     const [editForm, setEditForm] = useState(false);
@@ -124,13 +125,11 @@ export default (() => {
 
     return (
         <>
-
             {dialogConfirm && (
                 <AlertDialog message='Deseja Apagar a Conta?' handleDelete={deleteData} handleCloseDialog={showDialogConfirm} />
             )}
+                <div className= {localStorage.getItem('userType') == '1' ? 'container_user_adm': 'container_user'}>
 
-            {localStorage.getItem('userType') == '1' ? (
-                <div className='container_user_adm'>
                     {editForm == false ? (
                         <UserImgs profile={context.profile} background={context.background} nome={context.nome} adm={context.adm} apelido={context.apelido} descricao={context.descricao} id={context.id} editFormActive={editFormActive} />
                     ) : (
@@ -142,21 +141,6 @@ export default (() => {
                         </>
                     )}
                 </div>
-            ) : (
-                <div className='container_user'>
-                    {editForm == false ? (
-                            <UserImgs profile={context.profile} background={context.background} nome={context.nome} adm={context.adm} apelido={context.apelido} descricao={context.descricao} id={context.id}
-                                editFormActive={editFormActive} />
-                    ) : (
-                        <>
-                        <button className='img_profile_button' onClick={editFormActive}>
-                                <a>Cancelar</a>
-                            </button>
-                        <Form removeProfile={setProfile} removeBackground={setBackground} handleApelido={handleApelido} handleBackground={handleBackground} handleDescricao={handleDescricao} handleNome={handleNome} handleProfile={handleProfile} submitMethod={updateData} nome={nome} apelido={apelido} descricao={descricao} background={background} profile={profile} updateActive={editForm} handleDelete={showDialogConfirm} />
-                        </>
-                    )}
-                </div>
-            )}
         </>
     )
 })
