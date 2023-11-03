@@ -1,14 +1,7 @@
-import { useContext, useEffect, useState } from 'react'
 import background2 from '../../../public/background.jpg'
 import profileDefault from '../../../public/profile-picture.png'
 import '../../Pages/styles/profile.css'
-//import { useNavigate } from 'react-router-dom'
-import Form from '../Register/Form'
-import Api from '../../Api/Api'
-import { AuthContext } from '../../Context/AuthContext'
-import AlertDialog from '../layouts/AlertDialog'
-import { useNavigate } from 'react-router-dom'
-
+import {useEffect, useState} from 'react'
 
 interface props {
     id: string | null
@@ -18,30 +11,15 @@ interface props {
     descricao: string | null,
     background: any,
     adm: any
+    editFormActive:any
 }
 
 export default ((prop: props) => {
-
-    const { setAdm } = useContext(AuthContext)
-    const history = useNavigate();
-    //const history = useNavigate();
-    const { setStatus, setMsg } = useContext(AuthContext)
-    //EditForm
-    const [editForm, setEditForm] = useState(false);
-    //Editbutton
-    const [nome, setNome] = useState<string | null>('');
-    const [apelido, setApelido] = useState<string | null>('');
-    const [descricao, setDescricao] = useState<string | null>('');
-    const [profile, setProfile] = useState<string | null>('');
-    const [background, setBackground] = useState<string | null>('');
-    //const [email, setEmail] = useState<string | null>('');
 
     const [profileOfc, setProfileOfc] = useState('');
     const [backgroundOfc, setBackgroundOfc] = useState('');
     var urlProfile = convertURL(localStorage.getItem('userProfile'));
     var urlBackground = convertURL(localStorage.getItem('userBackground'));
-
-    const [dialogConfirm, setDialogConfirm] = useState(false);
 
     function convertURL(url: string | null): string {
         // Usa a função replace com uma expressão regular para substituir os caracteres de escape.
@@ -61,112 +39,8 @@ export default ((prop: props) => {
         }
     }, [])
 
-
-    function handleNome(e: any) {
-        setNome(e.target.value);
-    }
-
-    function handleApelido(e: any) {
-        setApelido(e.target.value);
-    }
-
-    function handleDescricao(e: any) {
-        setDescricao(e.target.value);
-    }
-
-    function handleProfile(e: any) {
-        console.log(e.target.files[0])
-        setProfile(e.target.files[0]);
-    }
-
-    function handleBackground(e: any) {
-        setBackground(e.target.files[0])
-    }
-
-    function editFormActive() {
-        setNome(localStorage.getItem('userNome'))
-        setApelido(localStorage.getItem('userApelido'))
-        setDescricao(localStorage.getItem('userDescricao'))
-        setProfile(localStorage.getItem('userProfile'))
-        setBackground(localStorage.getItem('userBackground'))
-        localStorage.removeItem('removeBackground');
-        localStorage.removeItem('removeProfile');
-        setEditForm(!editForm)
-    }
-
-    function showDialogConfirm() {
-        setDialogConfirm(!dialogConfirm);
-    }
-
-    async function deleteData() {
-        await Api.get(`/user/delete/${localStorage.getItem('userId')}`).then((response) => {
-            setStatus('success');
-            setMsg(response.data.msg)
-
-            localStorage.removeItem('token');
-            localStorage.removeItem('userType');
-            localStorage.clear();
-            setAdm(null);
-            Api.defaults.headers.authorization = null;
-
-            history('/')
-        }).catch((error) => {
-            console.log(error)
-            setStatus('error');
-            setMsg('Erro ao Deletar!')
-            setDialogConfirm(!dialogConfirm);
-        })
-    }
-
-    async function updateData(e: any) {
-        e.preventDefault();
-
-        console.log(profile)
-        console.log(background)
-
-        try {
-
-            const formData = new FormData();
-            formData.append('nome', nome != null ? nome : "");
-            formData.append('apelido', apelido != null ? apelido : "");
-            formData.append('descricao', descricao != null ? descricao : "");
-            formData.append('profile', profile != null ? profile : "")
-            formData.append('background', background != null ? background : "")
-
-            await Api.put(`/user/update/${localStorage.getItem('userId')}`,
-                formData,
-                {
-                    headers: {
-                        'Content-Type': 'multipart/form-data',
-                    },
-                }
-            ).then((response) => {
-                localStorage.removeItem('removeProfile')
-                localStorage.removeItem('removeBackground')
-                //console.log(response.data.msg);
-                console.log(response)
-                setStatus('success');
-                setMsg('Registro atualizado sucesso!')
-                setEditForm(!editForm);
-            }).catch((error) => {
-                e.preventDefault()
-                console.log(error)
-                setStatus('error');
-                setMsg('Erro ao Atualizar!')
-            })
-        } catch (error: any) {
-            console.log('Erro:', error);
-        }
-
-    }
-
     return (
         <>
-            {dialogConfirm && (
-                <AlertDialog message='Deseja Apagar a Conta?' handleDelete={deleteData} handleCloseDialog={showDialogConfirm} />
-            )}
-
-            {editForm == false ? (
                 <div className='container_imgs_user'>
                     <div className='img_background'>
 
@@ -199,20 +73,12 @@ export default ((prop: props) => {
                                     <h3>Descrição: {prop.descricao}</h3>
                                 )}
                             </div>
-                            <button className='img_profile_button' onClick={editFormActive}>
+                            <button className='img_profile_button' onClick={prop.editFormActive}>
                                 <a>Editar Perfil</a>
                             </button>
                         </div>
                     </div>
                 </div>
-            ) : (
-                <>
-                    <button className='img_profile_button' onClick={editFormActive}>
-                        <a>Cancelar</a>
-                    </button>
-                    <Form removeProfile={setProfile} removeBackground={setBackground} handleApelido={handleApelido} handleBackground={handleBackground} handleDescricao={handleDescricao} handleNome={handleNome} handleProfile={handleProfile} submitMethod={updateData} nome={nome} apelido={apelido} descricao={descricao} background={background} profile={profile} updateActive={editForm} handleDelete={showDialogConfirm} />
-                </>
-            )}
         </>
     )
 })

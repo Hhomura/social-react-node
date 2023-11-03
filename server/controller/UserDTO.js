@@ -124,10 +124,12 @@ module.exports = {
     }
 
     user.findOne({ where: { id: req.params.id } }).then((userUpdate) => {
-      if (userUpdate.profile_url != '' && req.body.profile == 'removeu') {
+      if (userUpdate.profile_url != '' && req.body.profile == 'removeu' ||
+      userUpdate.profile_url != '' && pathProfile != ""){
         fs.unlinkSync(convertURL(userUpdate.profile_url))
       }
-      if (userUpdate.background != '' && req.body.background == 'removeu') {
+      if (userUpdate.background != '' && req.body.background == 'removeu' ||
+      userUpdate.background != '' && pathBackground != "") {
         fs.unlinkSync(convertURL(userUpdate.background))
       }
     }).catch((error) => {
