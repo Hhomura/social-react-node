@@ -5,6 +5,7 @@ import InputProfile from "./InputProfile"
 import SubmitButton from "./SubmitButton"
 import '../../Pages/styles/register.css'
 import ButtonType from '../layouts/ButtonType'
+import { useCookies } from 'react-cookie'
 
 interface props {
     submitMethod: any
@@ -30,11 +31,17 @@ interface props {
 
 export default (({ submitMethod, handleNome, handleApelido, handleBackground, handleConPassword, handleDescricao, handleEmail, handlePassword, handleProfile, updateActive, nome, apelido, descricao, handleDelete, removeBackground, removeProfile}: props) => {
 
+    const [cookies] = useCookies(['user'])
+    const {adm, profile, background} = cookies.user
 
     const [profileOfc, setProfileOfc] = useState('');
     const [backgroundOfc, setBackgroundOfc] = useState('');
+    /*
     var urlProfile = convertURL(localStorage.getItem('userProfile'));
     var urlBackground = convertURL(localStorage.getItem('userBackground'));
+    */
+    var urlProfile = convertURL(profile);
+    var urlBackground = convertURL(background);
 
     function convertURL(url: string | null): string {
         // Usa a função replace com uma expressão regular para substituir os caracteres de escape.
@@ -57,7 +64,7 @@ export default (({ submitMethod, handleNome, handleApelido, handleBackground, ha
     return (
         <>
             <div className='container'>
-                {localStorage.getItem('userType') == '1' ? (
+                {adm == 1 ? (
                     <>
                         {!updateActive ? (
                             <form className='container_form' onSubmit={submitMethod} encType="multipart/form-data">

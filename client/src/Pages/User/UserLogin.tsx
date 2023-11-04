@@ -6,12 +6,13 @@ import SubmitButton from '../../Componentes/Register/SubmitButton'
 import { useNavigate } from 'react-router-dom'
 import { AuthContext } from '../../Context/AuthContext'
 import Api from '../../Api/Api'
-
+import {useCookies}  from 'react-cookie'
 
 export default (() => {
 
-    const { handleLogin, setMsg, setStatus, setAdm } = useContext(AuthContext)
+    const [, setCookie] = useCookies()
 
+    const { handleLogin, setMsg, setStatus, setAdm } = useContext(AuthContext)
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
@@ -41,20 +42,11 @@ export default (() => {
                 setStatus('success')
 
                 const token = response.data.token;
-
-                //Substituir por Cookies
-                localStorage.setItem('token', JSON.stringify(token));
                 Api.defaults.headers.authorization = `Bearer ${token}`;
+                //Cookies
+                setCookie('user', response.data)
+                setAdm(response.data.adm);
                 
-                localStorage.setItem('userType', JSON.stringify(response.data.adm));
-                localStorage.setItem('userId', response.data.id);
-                localStorage.setItem('userNome', response.data.nome);
-                localStorage.setItem('userApelido', response.data.apelido);
-                localStorage.setItem('userDescricao', response.data.descricao);
-                localStorage.setItem('userProfile', response.data.profile);
-                localStorage.setItem('userBackground', response.data.background);
-
-                setAdm(localStorage.getItem('userType'));
                 history('/')
 
             })
@@ -64,8 +56,6 @@ export default (() => {
 
             });
     }
-
-
 
     return (
         <div className='container_login'>

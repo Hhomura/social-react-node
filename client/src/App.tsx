@@ -1,13 +1,16 @@
 import './App.css'
 import { AuthProvider } from './Context/AuthContext'
 import Routes from './Utils/Routes'
+import { CookiesProvider } from 'react-cookie'
 
 function App() {
-  
+
   return (
-    <AuthProvider>
-      <Routes/>
-    </AuthProvider>
+    <CookiesProvider>
+      <AuthProvider>
+        <Routes />
+      </AuthProvider>
+    </CookiesProvider>
   )
 }
 

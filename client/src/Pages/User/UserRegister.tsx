@@ -4,8 +4,11 @@ import { useNavigate } from 'react-router-dom'
 import Api from '../../Api/Api'
 import { AuthContext } from '../../Context/AuthContext'
 import Form from '../../Componentes/Register/Form'
+import { useCookies } from 'react-cookie'
 
 export default (() => {
+
+    const [cookies] = useCookies(['user'])
 
     const [nome, setNome] = useState('');
     const [apelido, setApelido] = useState('');
@@ -15,7 +18,6 @@ export default (() => {
     const [descricao, setDescricao] = useState('');
     const [profile, setProfile] = useState('');
     const [background, setBackground] = useState('');
-    //const [adm, setAdm] = useState(1);
     const { adm, setMsg, setStatus, setAdm } = useContext(AuthContext);
 
     const history = useNavigate();
@@ -68,15 +70,6 @@ export default (() => {
     async function submitRegister(e: any) {
         e.preventDefault();
 
-        const removeuProfile = localStorage.getItem('removeProfile');
-        const removeuBackground = localStorage.getItem('removeBackground');
-
-        if(removeuProfile == 'true') setProfile('')
-        if(removeuBackground == 'true') setBackground('')
-
-        console.log(removeuProfile)
-        console.log(profile)
-
         if (!validarEmail(email)) {
             window.scrollTo(0, 0);
             setStatus('error');
@@ -91,8 +84,8 @@ export default (() => {
             return true
         }
 
-        if (localStorage.getItem('userType') != '1' && localStorage.getItem('userType') != '0') {
-            setAdm('0');
+        if (cookies.user.adm != 1 && cookies.user.adm != 0) {
+            setAdm(0);
         }
 
         try {

@@ -2,20 +2,24 @@ import { Link } from 'react-router-dom'
 import './styles/navbar.css'
 import { BsPersonCircle } from 'react-icons/bs'
 import logo from '../../../public/logo.png'
+import { useCookies } from 'react-cookie'
 
 interface props {
     handleLogOut: any
 }
 export default ((prop: props) => {
 
+    const [cookies] = useCookies(['user'])
+    const {adm} = cookies.user
+
     return (
         <>
             <nav className='container_navbar'>
-                {localStorage.getItem('userType') == '1' ? (
+                {adm == 1 ? (
                     <div className='container_logo'>
                         <img src={logo} />
                     </div>
-                ) : localStorage.getItem('userType') == '0' ? (
+                ) : adm == 0 ? (
                     <>
                         <div className='container_logo'>
                             <img src={logo} />

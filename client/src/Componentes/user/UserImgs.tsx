@@ -1,3 +1,4 @@
+import { useCookies } from 'react-cookie'
 import background2 from '../../../public/background.jpg'
 import profileDefault from '../../../public/profile-picture.png'
 import '../../Pages/styles/profile.css'
@@ -16,10 +17,13 @@ interface props {
 
 export default ((prop: props) => {
 
+    const [cookies] = useCookies(['user'])
+    const {adm, profile, background} = cookies.user
+
     const [profileOfc, setProfileOfc] = useState('');
     const [backgroundOfc, setBackgroundOfc] = useState('');
-    var urlProfile = convertURL(localStorage.getItem('userProfile'));
-    var urlBackground = convertURL(localStorage.getItem('userBackground'));
+    var urlProfile = convertURL(profile);
+    var urlBackground = convertURL(background);
 
     function convertURL(url: string | null): string {
         // Usa a função replace com uma expressão regular para substituir os caracteres de escape.
@@ -67,7 +71,7 @@ export default ((prop: props) => {
                                     <h2>Kaguya Houraisan</h2>
                                 )}
 
-                                {localStorage.getItem('userType') == '1' ? (
+                                {adm == 1 ? (
                                     <h3>(Administradora Suprema)</h3>
                                 ) : (
                                     <h3>Descrição: {prop.descricao}</h3>

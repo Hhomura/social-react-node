@@ -1,5 +1,5 @@
 import './styles/formControl.css'
-import { useEffect, useRef, useState } from 'react'
+import {useRef, useState } from 'react'
 import profile from '../../../public/profile-picture.png'
 import ConfirmUpdatePicture from '../layouts/ConfirmUpdatePicture'
 
@@ -21,14 +21,9 @@ export default ((prop: props) => {
 
     const [confirm, setConfirm] = useState(false)
     const [remove, setRemove] = useState(false)
-    
-    useEffect(() =>{
-        localStorage.setItem('removeProfile', 'false')
-    }, [])
-    
+
     const handleImageClick = () => {
         confirmPicture()
-        //inputRef.current?.click();
     }
     const inputLocalClick = () =>{
         setConfirm(!confirm)
@@ -38,15 +33,11 @@ export default ((prop: props) => {
     const inputRemoveClick = () =>{
         prop.setRemove('removeu')
         setRemove(true);
-        localStorage.setItem('removeProfile', 'true');
-        console.log(localStorage.getItem('removeProfile'))
         setConfirm(!confirm)
-        //inputRef.current?.click();
     }
 
     const handleImageChangeTeste = (e: any) => {
         setRemove(false);
-        localStorage.setItem('removeProfile', 'false');
         setImage(e.target.files[0]);
         prop.handleOnChange(e);
     }
@@ -54,8 +45,6 @@ export default ((prop: props) => {
     function confirmPicture(){
         setConfirm(!confirm)
     }
-
-    //onChange={prop.handleOnChange}  <-- lembrar de substituir isso
 
     return (
         <>

@@ -6,38 +6,40 @@ import Navbar from './Componentes/layouts/Navbar';
 import { AuthContext } from './Context/AuthContext';
 import { useContext, useEffect } from 'react'
 import MessageAlert from './Componentes/layouts/MessageAlert';
+import {useCookies}  from 'react-cookie'
 
 export default (() => {
+  const [cookies, removeCookie] = useCookies(['user'])
+  const {adm, nome, apelido, descricao, profile, background} = cookies.user
 
   const history = useNavigate();
-  const { setAdm, msg, status, setId, setNome, setDescricao, setApelido, setProfile, setBackground } = useContext(AuthContext);
+  const { setAdm, msg, status, setNome, setDescricao, setApelido, setProfile, setBackground } = useContext(AuthContext);
 
   useEffect(() => {
-    setId(localStorage.getItem('userId'))
-    setNome(localStorage.getItem('userNome'))
-    setApelido(localStorage.getItem('userApelido'))
-    setDescricao(localStorage.getItem('userDescricao'))
-    setProfile(localStorage.getItem('userProfile'))
-    setBackground(localStorage.getItem('userBackground'))
+    setNome(nome)
+    setApelido(apelido)
+    setDescricao(descricao)
+    setProfile(profile)
+    setBackground(background)
   }, [])
 
   function handleLogOut(e: any) {
     e.preventDefault()
 
-    localStorage.removeItem('token');
-    localStorage.removeItem('userType');
+    removeCookie('user', []);
     localStorage.clear();
 
     setAdm(null);
     Api.defaults.headers.authorization = null;
+
     history('/');
   }
 
   useEffect(() => {
-    if (localStorage.getItem('userType') == '0') {
-      setAdm('0')
-    } else if (localStorage.getItem('userType') == '1') {
-      setAdm('1')
+    if (adm == 0) {
+      setAdm(0)
+    } else if (adm == 1) {
+      setAdm(1)
     } else {
       setAdm('');
     }
@@ -49,17 +51,17 @@ export default (() => {
       {msg && (
         <MessageAlert message={msg} status={status} />
       )}
-      {localStorage.getItem('userType') === '1' ? (
+      {adm === 1 ? (
         <div className='parent'>
           <Sidebar handleLogout={handleLogOut} />
           <Outlet />
         </div>
-      ) : localStorage.getItem('userType') === '0' ? (
+      ) : adm === 0 ? (
         <div className='parent_sub'>
           <Navbar handleLogOut={handleLogOut} />
           <Outlet />
         </div>
-      ) : localStorage.getItem('userType') == null ? (
+      ) : adm == null ? (
         <div className='parent_sub'>
           <Navbar handleLogOut={{}} />
           <Outlet />

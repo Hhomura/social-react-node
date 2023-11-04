@@ -6,8 +6,12 @@ import { useNavigate } from 'react-router-dom';
 import AlertDialog from '../../Componentes/layouts/AlertDialog';
 import Api from '../../Api/Api'
 import Form from '../../Componentes/Register/Form';
+import { useCookies } from 'react-cookie';
 
 export default (() => {
+
+    const [cookies, , removeCookie] = useCookies(['user'])
+    const {id, adm} = cookies.user
 
     const { setAdm } = useContext(AuthContext)
     const history = useNavigate();
@@ -50,13 +54,13 @@ export default (() => {
 
     //Metodos de Manipulação de API
     async function deleteData() {
-        await Api.get(`/user/delete/${localStorage.getItem('userId')}`).then((response) => {
+        console.log("ID: "+ id)
+        await Api.get(`/user/delete/${id}`).then((response) => {
             setStatus('success');
             setMsg(response.data.msg)
 
-            localStorage.removeItem('token');
-            localStorage.removeItem('userType');
             localStorage.clear();
+            removeCookie('user')
             setAdm(null);
             Api.defaults.headers.authorization = null;
 
@@ -81,7 +85,7 @@ export default (() => {
             formData.append('profile', profile != null ? profile : "")
             formData.append('background', background != null ? background : "")
 
-            await Api.put(`/user/update/${localStorage.getItem('userId')}`,
+            await Api.put(`/user/update/${id}`,
                 formData,
                 {
                     headers: {
@@ -89,9 +93,6 @@ export default (() => {
                     },
                 }
             ).then((response) => {
-                localStorage.removeItem('removeProfile')
-                localStorage.removeItem('removeBackground')
-                //console.log(response.data.msg);
                 console.log(response)
                 setStatus('success');
                 setMsg('Registro atualizado sucesso!')
@@ -113,13 +114,11 @@ export default (() => {
     }
 
     function editFormActive() {
-        setNome(localStorage.getItem('userNome'))
-        setApelido(localStorage.getItem('userApelido'))
-        setDescricao(localStorage.getItem('userDescricao'))
-        setProfile(localStorage.getItem('userProfile'))
-        setBackground(localStorage.getItem('userBackground'))
-        localStorage.removeItem('removeBackground');
-        localStorage.removeItem('removeProfile');
+        setNome(cookies.user.nome)
+        setApelido(cookies.user.apelido)
+        setDescricao(cookies.user.descricao)
+        setProfile(cookies.user.profile)
+        setBackground(cookies.user.background)
         setEditForm(!editForm)
     }
 
@@ -128,7 +127,7 @@ export default (() => {
             {dialogConfirm && (
                 <AlertDialog message='Deseja Apagar a Conta?' handleDelete={deleteData} handleCloseDialog={showDialogConfirm} />
             )}
-                <div className= {localStorage.getItem('userType') == '1' ? 'container_user_adm': 'container_user'}>
+                <div className= {adm == 1 ? 'container_user_adm': 'container_user'}>
 
                     {editForm == false ? (
                         <UserImgs profile={context.profile} background={context.background} nome={context.nome} adm={context.adm} apelido={context.apelido} descricao={context.descricao} id={context.id} editFormActive={editFormActive} />

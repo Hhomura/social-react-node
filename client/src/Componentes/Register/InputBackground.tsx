@@ -1,5 +1,5 @@
 import './styles/formControl.css'
-import { useRef, useState, useEffect } from 'react'
+import { useRef, useState } from 'react'
 import background from '../../../public/background.jpg'
 import ConfirmUpdatePicture from '../layouts/ConfirmUpdatePicture'
 
@@ -22,20 +22,14 @@ export default ((prop: props) => {
     const inputRefBack = useRef<HTMLInputElement | null>(null);
     const [imageBack, setImageBack] = useState(null);
 
-    useEffect(() =>{
-        localStorage.setItem('removeBackground', 'false')
-    }, [])
-
     const handleImageBackChangeTeste = (e: any) => {
         setRemove(false)
-        localStorage.setItem('removeBackground', 'false');
         setImageBack(e.target.files[0])
         prop.handleOnChange(e);
     };
 
     const handleImageClick = () => {
         confirmPicture()
-        //inputRef.current?.click();
     }
 
     const inputLocalClick = () =>{
@@ -46,14 +40,11 @@ export default ((prop: props) => {
     const inputRemoveClick = () =>{
         prop.setRemmove('removeu')
         setRemove(true);
-        localStorage.setItem('removeBackground', 'true');
         setConfirm(!confirm)
-        //inputRef.current?.click();
     }
     function confirmPicture(){
         setConfirm(!confirm)
     }
-    //onChange={prop.handleOnChange}  <-- lembrar de substituir isso
 
     return (
         <>
