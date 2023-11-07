@@ -6,21 +6,30 @@ import Navbar from './Componentes/layouts/Navbar';
 import { AuthContext } from './Context/AuthContext';
 import { useContext, useEffect } from 'react'
 import MessageAlert from './Componentes/layouts/MessageAlert';
-import {useCookies}  from 'react-cookie'
+import { useCookies } from 'react-cookie'
 
 export default (() => {
-  const [cookies, removeCookie] = useCookies(['user'])
-  const {adm, nome, apelido, descricao, profile, background} = cookies.user
 
+  const [cookies, removeCookie] = useCookies(['user'])
+  console.log(cookies.user)
+  const adm = cookies.user != undefined? cookies.user.adm: null;
+
+  //const {adm, nome, apelido, descricao, profile, background} = cookies.user
   const history = useNavigate();
   const { setAdm, msg, status, setNome, setDescricao, setApelido, setProfile, setBackground } = useContext(AuthContext);
 
+  function setDatas() {
+    if (cookies.user != undefined) {
+      setNome(cookies.user.nome)
+      setApelido(cookies.user.apelido)
+      setDescricao(cookies.user.descricao)
+      setProfile(cookies.user.profile)
+      setBackground(cookies.user.background)
+    }
+  }
+
   useEffect(() => {
-    setNome(nome)
-    setApelido(apelido)
-    setDescricao(descricao)
-    setProfile(profile)
-    setBackground(background)
+    setDatas();
   }, [])
 
   function handleLogOut(e: any) {

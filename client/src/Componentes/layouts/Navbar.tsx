@@ -10,7 +10,7 @@ interface props {
 export default ((prop: props) => {
 
     const [cookies] = useCookies(['user'])
-    const {adm} = cookies.user
+    const adm = cookies.user != undefined? cookies.user.adm: null;
 
     return (
         <>

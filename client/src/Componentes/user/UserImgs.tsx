@@ -18,7 +18,9 @@ interface props {
 export default ((prop: props) => {
 
     const [cookies] = useCookies(['user'])
-    const {adm, profile, background} = cookies.user
+    const adm = cookies.user != undefined? cookies.user.adm: null;
+    const profile = cookies.user != undefined? cookies.user.profile: '';
+    const background = cookies.user != undefined? cookies.user.background: '';
 
     const [profileOfc, setProfileOfc] = useState('');
     const [backgroundOfc, setBackgroundOfc] = useState('');

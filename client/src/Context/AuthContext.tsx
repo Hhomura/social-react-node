@@ -1,6 +1,5 @@
 import { createContext, useState } from 'react';
 import Api from '../Api/Api';
-import { useCookies } from 'react-cookie';
 
 const AuthContext = createContext<any | null>(false);
 
@@ -10,14 +9,11 @@ interface props {
 
 function AuthProvider(prop: props) {
 
-  const [cookie] = useCookies(['user'])
-  const [adm, setAdm] = useState<string | null>(cookie.user.adm);
-  
+  const [adm, setAdm] = useState<string | null>(null);
   const [msg, setMsg] = useState('');
   const [status, setStatus] = useState('');
   const [msgReg, setMsgReg] = useState('');
   const [statusReg, setStatusReg] = useState('');
-
   const [profile, setProfile] = useState<string | null>(null);
   const [background, setBackground] = useState<string | null>(null);
   const [nome, setNome] = useState<string | null>('');

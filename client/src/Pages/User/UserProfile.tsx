@@ -11,7 +11,8 @@ import { useCookies } from 'react-cookie';
 export default (() => {
 
     const [cookies, , removeCookie] = useCookies(['user'])
-    const {id, adm} = cookies.user
+    const adm = cookies.user != undefined? cookies.user.adm: null;
+    const id = cookies.user != undefined? cookies.user.id: '';
 
     const { setAdm } = useContext(AuthContext)
     const history = useNavigate();
