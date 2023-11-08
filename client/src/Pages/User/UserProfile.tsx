@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import UserImgs from '../../Componentes/user/UserImgs'
 import '../styles/profile.css'
 import { AuthContext } from '../../Context/AuthContext';
@@ -10,9 +10,9 @@ import { useCookies } from 'react-cookie';
 
 export default (() => {
 
-    const [cookies, , removeCookie] = useCookies(['user'])
-    const adm = cookies.user != undefined? cookies.user.adm: null;
-    const id = cookies.user != undefined? cookies.user.id: '';
+    const [cookies, setCookie, removeCookie] = useCookies(['user'])
+    const adm = cookies.user != undefined ? cookies.user.adm : null;
+    const id = cookies.user != undefined ? cookies.user.id : '';
 
     const { setAdm } = useContext(AuthContext)
     const history = useNavigate();
@@ -55,7 +55,6 @@ export default (() => {
 
     //Metodos de Manipulação de API
     async function deleteData() {
-        console.log("ID: "+ id)
         await Api.get(`/user/delete/${id}`).then((response) => {
             setStatus('success');
             setMsg(response.data.msg)
@@ -93,8 +92,32 @@ export default (() => {
                         'Content-Type': 'multipart/form-data',
                     },
                 }
-            ).then((response) => {
-                console.log(response)
+            ).then(() => {
+
+                Api.get(`/user/get/${id}`)
+                    .then((data) => {
+                        const user = {
+                            adm: data.data.user.adm,
+                            id: data.data.user.id,
+                            nome: data.data.user.nome,
+                            apelido: data.data.user.apelido,
+                            descricao: data.data.user.descricao,
+                            profile: data.data.user.profile_url,
+                            background: data.data.user.background,
+                            token: cookies.user.token
+                        }
+                            context.setNome(user.nome)
+                            context.setDescricao(user.descricao)
+                            context.setProfile(user.profile)
+                            context.setBackground(user.background)
+                            context.setApelido(user.apelido)
+
+                        setCookie('user', user);
+
+                    }).catch((error) => {
+                        console.log(error)
+                    })
+
                 setStatus('success');
                 setMsg('Registro atualizado sucesso!')
                 setEditForm(!editForm);
@@ -121,26 +144,28 @@ export default (() => {
         setProfile(cookies.user.profile)
         setBackground(cookies.user.background)
         setEditForm(!editForm)
+
     }
+
 
     return (
         <>
             {dialogConfirm && (
                 <AlertDialog message='Deseja Apagar a Conta?' handleDelete={deleteData} handleCloseDialog={showDialogConfirm} />
             )}
-                <div className= {adm == 1 ? 'container_user_adm': 'container_user'}>
+            <div className={adm == 1 ? 'container_user_adm' : 'container_user'}>
 
-                    {editForm == false ? (
-                        <UserImgs profile={context.profile} background={context.background} nome={context.nome} adm={context.adm} apelido={context.apelido} descricao={context.descricao} id={context.id} editFormActive={editFormActive} />
-                    ) : (
-                        <>
-                            <button className='img_profile_button' onClick={editFormActive}>
-                                <a>Cancelar</a>
-                            </button>
-                            <Form removeProfile={setProfile} removeBackground={setBackground} handleApelido={handleApelido} handleBackground={handleBackground} handleDescricao={handleDescricao} handleNome={handleNome} handleProfile={handleProfile} submitMethod={updateData} nome={nome} apelido={apelido} descricao={descricao} background={background} profile={profile} updateActive={editForm} handleDelete={showDialogConfirm} />
-                        </>
-                    )}
-                </div>
+                {editForm == false ? (
+                    <UserImgs profile={context.profile} background={context.background} nome={context.nome} adm={context.adm} apelido={context.apelido} descricao={context.descricao} id={context.id} editFormActive={editFormActive} />
+                ) : (
+                    <>
+                        <button className='img_profile_button' onClick={editFormActive}>
+                            <a>Cancelar</a>
+                        </button>
+                        <Form removeProfile={setProfile} removeBackground={setBackground} handleApelido={handleApelido} handleBackground={handleBackground} handleDescricao={handleDescricao} handleNome={handleNome} handleProfile={handleProfile} submitMethod={updateData} nome={nome} apelido={apelido} descricao={descricao} background={background} profile={profile} updateActive={editForm} handleDelete={showDialogConfirm} />
+                    </>
+                )}
+            </div>
         </>
     )
 })

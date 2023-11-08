@@ -33,6 +33,10 @@ router.get('/delete/:id', (req, res) =>{
   userDTO.deleteUser(req, res);
 })
 
+router.get('/get/:id', (req, res) =>{
+  userDTO.getUser(req, res);
+})
+
 router.get('/teste', auth, (req, res) =>{
   return res.json({msg: 'Opa'});
 })

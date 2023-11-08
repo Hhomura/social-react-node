@@ -1,7 +1,8 @@
 const user = require('../models/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const fs = require('fs')
+const fs = require('fs');
+const { error } = require('console');
 
 function convertURL(url) {
   if (url != null) {
@@ -81,12 +82,10 @@ module.exports = {
           bcrypt.compare(req.body.password, user.password, (erro, batem) => {
             if (batem) {
               console.log("É o mesmo usuário!")
-              //res.status(200).json({msg: "MESMO USUÀRIO"});
               res.json({
                 id: user.id,
                 nome: user.nome,
                 apelido: user.apelido,
-                //email: user.email,
                 descricao: user.descricao,
                 profile: user.profile_url,
                 background: user.background,
@@ -146,11 +145,17 @@ module.exports = {
       profile_url: pathProfile != '' ? pathProfile : profile,
       background: pathBackground != '' ? pathBackground : background
     }, { where: { id: req.params.id } }).then((data) => {
-
       res.status(200).json({ user: data, msg: "Atualizou com sucesso todos os dados" })
     }).catch((error) => {
       res.status(400).json({ msg: 'Error: ' + error })
     })
+  },
 
+  getUser: (req, res) =>{
+    user.findByPk(req.params.id).then((data) =>{
+      res.status(200).json({ user: data, msg: "Usuário encontrado" })
+    }).catch((error) =>{
+      res.status(400).json({ msg: 'Error: ' + error })
+    })
   }
 }
