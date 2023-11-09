@@ -14,10 +14,7 @@ const cpUpload = upload.fields([
   { name: 'background', maxCount: 1 }
 ]);
 
-  //router.post('/register', upload.single('profile'), (req, res) => {
 router.post('/register', cpUpload, (req, res) => {
-  //console.log(req.files.profile[0]);
-  //console.log(req.files.background[0]);
      userDTO.addUser(req, res);
 });
 
@@ -36,10 +33,5 @@ router.get('/delete/:id', (req, res) =>{
 router.get('/get/:id', (req, res) =>{
   userDTO.getUser(req, res);
 })
-
-router.get('/teste', auth, (req, res) =>{
-  return res.json({msg: 'Opa'});
-})
-
 
 module.exports = router;

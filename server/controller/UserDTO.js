@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const fs = require('fs');
 const { error } = require('console');
+const { INTEGER } = require('sequelize');
 
 function convertURL(url) {
   if (url != null) {
@@ -17,22 +18,26 @@ module.exports = {
   addUser: (req, res) => {
     var pathProfile = '';
     var pathBackground = '';
+    var adm = '';
 
-    if (req.files['profile']) {
-      pathProfile = req.files['profile'][0].path;
-    }
-    if (req.files['background']) {
-      pathBackground = req.files['background'][0].path;
-    }
+    console.log("ADM: " + req.body.adm)
+    console.log(typeof req.body.adm)
 
     const senhaHash = req.body.password;
-
     bcrypt.genSalt(10, (erro, salt) => {
       bcrypt.hash(senhaHash, salt, (erro, hash) => {
         if (erro) {
           console.log(`Erro ao gerar hash: ${erro}`);
           return;
         }
+
+        if (req.files['profile']) {
+          pathProfile = req.files['profile'][0].path;
+        }
+        if (req.files['background']) {
+          pathBackground = req.files['background'][0].path;
+        }
+
         const senha = hash;
         user.create({
           nome: req.body.nome,
@@ -42,7 +47,7 @@ module.exports = {
           descricao: req.body.descricao,
           profile_url: pathProfile,
           background: pathBackground,
-          adm: req.body.adm
+          adm: Number.parseInt(req.body.adm)
         })
           .then(() => {
             res.status(200).json({ msg: "Usuário Registrado" })
@@ -56,21 +61,26 @@ module.exports = {
 
   deleteUser: (req, res) => {
 
-    user.findOne({ where: { id: req.params.id } }).then((userUpdate) => {
-      if (userUpdate.profile_url != '') {
-        fs.unlinkSync(convertURL(userUpdate.profile_url))
+    console.log(req.params.id)
+    user.findOne({ where: { id: req.params.id } }).then((userDelete) => {
+      console.log(userDelete)
+      if (userDelete.profile_url != '') {
+        console.log("Prof")
+        fs.unlinkSync(convertURL(userDelete.profile_url))
       }
-      if (userUpdate.background != '') {
-        fs.unlinkSync(convertURL(userUpdate.background))
+      if (userDelete.background != '') {
+        console.log("Back")
+        fs.unlinkSync(convertURL(userDelete.background))
       }
+
+      user.destroy({ where: { id: req.params.id } }).then(() => {
+        res.status(200).json({ msg: "Usuário Deletado com Sucesso!" })
+      }).catch((error) => {
+        res.status(400).json({ msg: 'Error ao Deletar Usuário: ' + error })
+      })
+
     }).catch((error) => {
       console.log(error)
-    })
-
-    user.destroy({ where: { id: req.params.id } }).then(() => {
-      res.status(200).json({ msg: "Usuário Deletado com Sucesso!" })
-    }).catch((error) => {
-      res.status(400).json({ msg: 'Error ao Deletar Usuário: ' + error })
     })
   }
   ,

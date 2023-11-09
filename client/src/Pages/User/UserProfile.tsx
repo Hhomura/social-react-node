@@ -1,24 +1,20 @@
-import { useContext, useState, useEffect } from 'react';
+import { useContext, useState } from 'react';
 import UserImgs from '../../Componentes/user/UserImgs'
 import '../styles/profile.css'
 import { AuthContext } from '../../Context/AuthContext';
-import { useNavigate } from 'react-router-dom';
 import AlertDialog from '../../Componentes/layouts/AlertDialog';
-import Api from '../../Api/Api'
 import Form from '../../Componentes/Register/Form';
 import { useCookies } from 'react-cookie';
+import serviceUser from '../../Api/Services/ServiceUser';
+import { useNavigate } from 'react-router-dom';
 
 export default (() => {
 
+    const history = useNavigate();
     const [cookies, setCookie, removeCookie] = useCookies(['user'])
     const adm = cookies.user != undefined ? cookies.user.adm : null;
     const id = cookies.user != undefined ? cookies.user.id : '';
-
-    const { setAdm } = useContext(AuthContext)
-    const history = useNavigate();
-
-    const { setStatus, setMsg } = useContext(AuthContext)
-    //EditForm
+    var context = useContext(AuthContext);
     const [editForm, setEditForm] = useState(false);
     //Editbutton
     const [nome, setNome] = useState<string | null>('');
@@ -26,10 +22,7 @@ export default (() => {
     const [descricao, setDescricao] = useState<string | null>('');
     const [profile, setProfile] = useState<string | null>('');
     const [background, setBackground] = useState<string | null>('');
-
     const [dialogConfirm, setDialogConfirm] = useState(false);
-
-    var context = useContext(AuthContext);
 
     //Alteração de estados
     function handleNome(e: any) {
@@ -54,82 +47,25 @@ export default (() => {
     }
 
     //Metodos de Manipulação de API
-    async function deleteData() {
-        await Api.get(`/user/delete/${id}`).then((response) => {
-            setStatus('success');
-            setMsg(response.data.msg)
-
-            localStorage.clear();
-            removeCookie('user')
-            setAdm(null);
-            Api.defaults.headers.authorization = null;
-
-            history('/')
-        }).catch((error) => {
-            console.log(error)
-            setStatus('error');
-            setMsg('Erro ao Deletar!')
-            setDialogConfirm(!dialogConfirm);
-        })
+     function deleteData() {
+        serviceUser.delete(id, dialogConfirm, setDialogConfirm, context.setStatus, context.setMsg, removeCookie, context.setAdm, history);
     }
 
-    async function updateData(e: any) {
-        e.preventDefault();
+     function updateData(e: any) {
+        serviceUser.update(e, id, nome, apelido, descricao, profile, background).then(() => {
 
-        try {
+            serviceUser.getOneUser(id, context, cookies, setCookie);
 
-            const formData = new FormData();
-            formData.append('nome', nome != null ? nome : "");
-            formData.append('apelido', apelido != null ? apelido : "");
-            formData.append('descricao', descricao != null ? descricao : "");
-            formData.append('profile', profile != null ? profile : "")
-            formData.append('background', background != null ? background : "")
+            context.setStatus('success');
+            context.setMsg('Registro atualizado sucesso!')
+            setEditForm(!editForm);
 
-            await Api.put(`/user/update/${id}`,
-                formData,
-                {
-                    headers: {
-                        'Content-Type': 'multipart/form-data',
-                    },
-                }
-            ).then(() => {
-
-                Api.get(`/user/get/${id}`)
-                    .then((data) => {
-                        const user = {
-                            adm: data.data.user.adm,
-                            id: data.data.user.id,
-                            nome: data.data.user.nome,
-                            apelido: data.data.user.apelido,
-                            descricao: data.data.user.descricao,
-                            profile: data.data.user.profile_url,
-                            background: data.data.user.background,
-                            token: cookies.user.token
-                        }
-                            context.setNome(user.nome)
-                            context.setDescricao(user.descricao)
-                            context.setProfile(user.profile)
-                            context.setBackground(user.background)
-                            context.setApelido(user.apelido)
-
-                        setCookie('user', user);
-
-                    }).catch((error) => {
-                        console.log(error)
-                    })
-
-                setStatus('success');
-                setMsg('Registro atualizado sucesso!')
-                setEditForm(!editForm);
-            }).catch((error) => {
-                e.preventDefault()
-                console.log(error)
-                setStatus('error');
-                setMsg('Erro ao Atualizar!')
-            })
-        } catch (error: any) {
-            console.log('Erro:', error);
-        }
+        }).catch((error) => {
+            e.preventDefault()
+            console.log(error)
+            context.setStatus('error');
+            context.setMsg('Erro ao Atualizar!')
+        })
 
     }
 

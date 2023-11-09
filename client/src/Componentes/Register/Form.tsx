@@ -35,13 +35,8 @@ export default (({ submitMethod, handleNome, handleApelido, handleBackground, ha
     const adm = cookies.user != undefined? cookies.user.adm: null;
     const profile = cookies.user != undefined? cookies.user.profile: '';
     const background = cookies.user != undefined? cookies.user.background: '';
-
     const [profileOfc, setProfileOfc] = useState('');
     const [backgroundOfc, setBackgroundOfc] = useState('');
-    /*
-    var urlProfile = convertURL(localStorage.getItem('userProfile'));
-    var urlBackground = convertURL(localStorage.getItem('userBackground'));
-    */
     var urlProfile = convertURL(profile);
     var urlBackground = convertURL(background);
 

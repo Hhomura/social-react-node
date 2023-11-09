@@ -1,15 +1,13 @@
 import { useContext, useState } from 'react'
 import '../styles/register.css'
-import { useNavigate } from 'react-router-dom'
-import Api from '../../Api/Api'
 import { AuthContext } from '../../Context/AuthContext'
 import Form from '../../Componentes/Register/Form'
-import { useCookies } from 'react-cookie'
+import service from '../../Api/Services/ServiceUser'
+import { useNavigate } from 'react-router-dom'
 
 export default (() => {
 
-    const [cookies] = useCookies(['user'])
-
+    var history = useNavigate();
     const [nome, setNome] = useState('');
     const [apelido, setApelido] = useState('');
     const [email, setEmail] = useState('');
@@ -18,9 +16,8 @@ export default (() => {
     const [descricao, setDescricao] = useState('');
     const [profile, setProfile] = useState('');
     const [background, setBackground] = useState('');
-    const { adm, setMsg, setStatus, setAdm } = useContext(AuthContext);
+    const { adm, setMsg, setStatus } = useContext(AuthContext);
 
-    const history = useNavigate();
 
     function handleNome(e: any) {
         setNome(e.target.value);
@@ -67,7 +64,7 @@ export default (() => {
     }
 
 
-    async function submitRegister(e: any) {
+    function submitRegister(e: any) {
         e.preventDefault();
 
         if (!validarEmail(email)) {
@@ -84,41 +81,29 @@ export default (() => {
             return true
         }
 
-        if (cookies.user.adm != 1 && cookies.user.adm != 0) {
-            setAdm(0);
+        /*
+        if(cookies.user != undefined){
+            if (cookies.user.adm != 1 && cookies.user.adm != 0) {
+                setAdm(0);
+            }
+        }else{
+            setAdm(0)
         }
+        if(adm == '') setAdm(0)
+        console.log("ADM: " + adm)
+    */
 
-        try {
-            const formData = new FormData();
-            formData.append('nome', nome);
-            formData.append('apelido', apelido);
-            formData.append('email', email);
-            formData.append('password', password);
-            formData.append('descricao', descricao);
-            formData.append('adm', adm.toString());
-            formData.append('profile', profile);
-            formData.append('background', background);
-            await Api.post('/user/register',
-                formData,
-                {
-                    headers: {
-                        'Content-Type': 'multipart/form-data',
-                    },
-                }
-            ).then((response) => {
-                console.log(response.data.msg);
-                setStatus('success');
-                setMsg('Registro feito com sucesso!')
+        console.log("ADM: REGISTER: " + adm)
+        service.createUSer(nome, apelido, email, descricao, adm, password, profile, background, setStatus, setMsg).then(() =>{
+            if(adm == 1){
+                history('/profile')    
+            }else{
                 history('/login')
-            }).catch((error) => {
-                console.log(error)
-                history('/register')
-            })
-
-        } catch (error: any) {
-            console.log('Erro:', error);
-        }
-        
+            }
+        }).catch((error) =>{
+            history('/register')
+            console.log(error)
+        })
     }
 
     return (
