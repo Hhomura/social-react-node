@@ -13,8 +13,6 @@ export default (() => {
   const [cookies, removeCookie] = useCookies(['user'])
   console.log(cookies.user)
   const adm = cookies.user != undefined? cookies.user.adm: null;
-
-  //const {adm, nome, apelido, descricao, profile, background} = cookies.user
   const history = useNavigate();
   const { setAdm, msg, status, setNome, setDescricao, setApelido, setProfile, setBackground } = useContext(AuthContext);
 

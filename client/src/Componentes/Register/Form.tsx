@@ -41,7 +41,6 @@ export default (({ submitMethod, handleNome, handleApelido, handleBackground, ha
     var urlBackground = convertURL(background);
 
     function convertURL(url: string | null): string {
-        // Usa a função replace com uma expressão regular para substituir os caracteres de escape.
         if (url != null) {
             const convertedURL = url.replace(/\\/g, '/');
             return convertedURL;

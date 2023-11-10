@@ -2,8 +2,6 @@ const user = require('../models/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const fs = require('fs');
-const { error } = require('console');
-const { INTEGER } = require('sequelize');
 
 function convertURL(url) {
   if (url != null) {
@@ -82,8 +80,7 @@ module.exports = {
     }).catch((error) => {
       console.log(error)
     })
-  }
-  ,
+  },
 
   authUser: (req, res) => {
     user.findOne({ where: { email: req.body.email } },)

@@ -1,0 +1,38 @@
+.sidebar_item_container{
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-left: 30px;
+    margin-top: 5px;
+}
+
+.sidebar_item_container_content{
+    transition: 0.3s;
+    padding: 10px;
+    width: 100%;
+    margin-top: 5px;
+}
+
+.sidebar_item_container_content span{
+    font-size: 15px;
+}
+
+.sidebar_item_container_content svg{
+    height: 17px;
+    width: 17px;
+    margin: 0;
+}
+
+.sidebar_item_container_content:hover{
+    background-color: gray;
+    border-radius: 10px;
+}
+
+.active{
+    display: flex;
+}
+
+.disabled{
+    display: none;
+}

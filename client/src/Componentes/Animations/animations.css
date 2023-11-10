@@ -1,4 +1,4 @@
-@keyframes slideTopToBottom{
+@keyframes slideBottomToTop{
     from{
         transform: translateY(-200px);
         opacity: 0;
@@ -13,4 +13,21 @@
 
 .slideBottomToTop{
     animation: slideBottomToTop 0.6s ease-in;
+}
+
+.slideTopToBottom{
+    animation: slideTopToBottom 0.4s ease-in-out;
+}
+
+@keyframes slideTopToBottom{
+    from{
+        transform: translateY(-30px);
+        opacity: 0;
+    }
+
+    to{
+        transform: translateX(0);
+        opacity: 1;
+    }
+
 }
