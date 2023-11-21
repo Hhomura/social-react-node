@@ -1,8 +1,8 @@
 import { Outlet, useNavigate } from 'react-router-dom';
-import Sidebar from './Componentes/layouts/Sidebar';
+import Sidebar from './Componentes/layouts/Sidebar/Sidebar';
 import './App.css'
 import Api from './Api/Api';
-import Navbar from './Componentes/layouts/Navbar';
+import Navbar from './Componentes/layouts/Navbar/Navbar';
 import { AuthContext } from './Context/AuthContext';
 import { useContext, useEffect } from 'react'
 import MessageAlert from './Componentes/layouts/MessageAlert';

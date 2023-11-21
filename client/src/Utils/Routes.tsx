@@ -9,6 +9,7 @@ import Parent from "../Parent";
 import NotFound from "../Componentes/layouts/NotFound";
 import {useContext} from 'react'
 import { AuthContext } from "../Context/AuthContext";
+import ServoRegister from "../Pages/Servos/ServoRegister";
 
 const Routes = () =>{
   
@@ -51,6 +52,10 @@ const Routes = () =>{
                   {
                     path: '/profile',
                     element: <UserProfile/>
+                  },
+                  {
+                    path: '/servo-register',
+                    element: <ServoRegister/>
                   }
             ]
         }

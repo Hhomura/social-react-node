@@ -81,18 +81,6 @@ export default (() => {
             return true
         }
 
-        /*
-        if(cookies.user != undefined){
-            if (cookies.user.adm != 1 && cookies.user.adm != 0) {
-                setAdm(0);
-            }
-        }else{
-            setAdm(0)
-        }
-        if(adm == '') setAdm(0)
-        console.log("ADM: " + adm)
-    */
-
         console.log("ADM: REGISTER: " + adm)
         service.createUSer(nome, apelido, email, descricao, adm, password, profile, background, setStatus, setMsg).then(() =>{
             if(adm == 1){

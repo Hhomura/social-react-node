@@ -69,7 +69,7 @@
     transition: 0.3s;
 }
 
-.sidebar_nav a{
+.sidebar_nav a, .nav_item{
     width: 100%;
     text-decoration: none;
     transition: 0.4s;

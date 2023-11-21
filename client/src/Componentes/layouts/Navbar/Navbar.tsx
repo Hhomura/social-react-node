@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
-import './styles/navbar.css'
+import '../styles/navbar.css'
 import { BsPersonCircle } from 'react-icons/bs'
-import logo from '../../../public/logo.png'
+import logo from '../../../../public/logo.png'
 import { useCookies } from 'react-cookie'
 
 interface props {

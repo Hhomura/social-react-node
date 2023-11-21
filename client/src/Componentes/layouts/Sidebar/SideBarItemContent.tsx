@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
-import './styles/sidebaritem.css'
-import '../Animations/animations.css'
+import '../styles/sidebaritem.css'
+import '../../Animations/animations.css'
 import { BsPerson } from 'react-icons/bs';
 
 interface PersonProps {

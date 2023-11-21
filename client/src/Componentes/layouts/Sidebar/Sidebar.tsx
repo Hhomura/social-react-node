@@ -1,8 +1,8 @@
-import './styles/sidear.css';
+import '../styles/sidear.css';
 import { BsHouseDoor, BsDiamondHalf, BsStars, BsSearch, BsPersonFill, BsPersonAdd, BsPower } from 'react-icons/bs';
-import logo from '../../../public/logo.png'
+import logo from '../../../../public/logo.png'
 import { Link } from 'react-router-dom';
-import SideBarItem from './SideBarItem';
+import SideBarItemContent from './SideBarItemContent';
 import { useState } from 'react';
 
 
@@ -14,6 +14,7 @@ export default ((props: prop) => {
 
     const [showContentPersonagem, setShowContentPersonagem] = useState(false)
     const [showContentSeries, setShowContentSeries] = useState(false)
+    const [showContentCadastro, setShowContentCadastro] = useState(false)
 
     const dataSeries = [
         { title: 'Fate Series' , link: "/"},
@@ -26,6 +27,13 @@ export default ((props: prop) => {
         { title: 'Servos' , link: "/"},
         { title: 'Magias' , link: '/'},
         { title: 'Outros' , link: '/'},
+        // ... outros dados
+    ];
+
+    const dataCadastro = [
+        { title: 'Adm' , link: "/register"},
+        { title: 'Servos' , link: '/servo-register'},
+        { title: 'Magias' , link: '/'},
         // ... outros dados
     ];
 
@@ -53,31 +61,31 @@ export default ((props: prop) => {
                 </div>
 
                 <div className='sidebar_item' onClick = {(() => showContent(showContentSeries, setShowContentSeries))}>
-                    <Link to="/">
+                    <div className='nav_item'>
                         <BsDiamondHalf />
                         <span>
                             Séries
                         </span>
-                        <SideBarItem data={dataSeries} active= {showContentSeries ? "active slideTopToBottom" : "disabled"}/>
-                    </Link>
+                        <SideBarItemContent data={dataSeries} active= {showContentSeries ? "active slideTopToBottom" : "disabled"}/>
+                    </div>
                 </div>
 
                 <div className='sidebar_item' onClick = {(() => showContent(showContentPersonagem, setShowContentPersonagem))}>
-                    <Link to="/">
+                    <div className='nav_item'>
                         <BsStars />
                         <span>
                             Personagens
                         </span>
-                        <SideBarItem data={dataPersonagem} active= {showContentPersonagem ? "active slideTopToBottom" : "disabled"}/>
-                    </Link>
+                        <SideBarItemContent data={dataPersonagem} active= {showContentPersonagem ? "active slideTopToBottom" : "disabled"}/>
+                    </div>
                 </div>
                 <div className='sidebar_item'>
-                    <Link to="/">
+                    <div className='nav_item'>
                         <BsSearch />
                         <span>
                             Busca
                         </span>
-                    </Link>
+                    </div>
                 </div>
                 <div className='sidebar_item'>
                     <Link to="/profile">
@@ -87,13 +95,14 @@ export default ((props: prop) => {
                         </span>
                     </Link>
                 </div>
-                <div className='sidebar_item'>
-                    <Link to="/register">
+                <div className='sidebar_item' onClick={(() => showContent(showContentCadastro, setShowContentCadastro))}>
+                    <div className='nav_item'>
                         <BsPersonAdd />
                         <span>
                             Cadastro
                         </span>
-                    </Link>
+                        <SideBarItemContent data={dataCadastro} active={showContentCadastro ? "active slideTopToBottom" : "disabled"}/>
+                    </div>
                 </div>
                 <div className='sidebar_item'>
                     <Link to='/login' onClick={props.handleLogout}>
