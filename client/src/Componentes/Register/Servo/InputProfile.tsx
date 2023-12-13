@@ -1,7 +1,7 @@
-import './styles/formControl.css'
+import '../styles/forminputprofile.css'
 import { useRef, useState } from 'react'
-import background from '../../../public/background.jpg'
-import ConfirmUpdatePicture from '../layouts/ConfirmUpdatePicture'
+import imgDefault from '../../../../public/profile-picture.png'
+import ConfirmUpdatePicture from '../../layouts/ConfirmUpdatePicture'
 
 interface props {
     type: any,
@@ -17,61 +17,58 @@ interface props {
 export default ((prop: props) => {
 
     const [confirm, setConfirm] = useState(false)
+    const [imageProfile, setImageProfile] = useState(null)
     const [remove, setRemove] = useState(false)
     const inputRefBack = useRef<HTMLInputElement | null>(null);
-    const [imageBack, setImageBack] = useState(null);
 
     const handleImageBackChangeTeste = (e: any) => {
         setRemove(false)
-        setImageBack(e.target.files[0])
+        setImageProfile(e.target.files[0])
         prop.handleOnChange(e);
     };
 
-    const handleImageClick = () => {
+    function handleImageClick() {
         confirmPicture()
     }
-
-    const inputLocalClick = () =>{
+    const inputLocalClick = () => {
         setConfirm(!confirm)
         inputRefBack.current?.click();
     }
-
-    const inputRemoveClick = () =>{
+    const inputRemoveClick = () => {
         prop.setRemmove('removeu')
         setRemove(true);
         setConfirm(!confirm)
     }
-    function confirmPicture(){
+    function confirmPicture() {
         setConfirm(!confirm)
     }
 
     return (
-        <>
-        {confirm &&(
-            <ConfirmUpdatePicture removeConfirm={inputRemoveClick} localConfirm={inputLocalClick} hnadleConfirm={confirmPicture}/>
-        )}
 
-            {prop.value && !remove? (
-                <div className='input_container_background' onClick={handleImageClick}>
-                    {imageBack ? (
-                        <img src={URL.createObjectURL(imageBack)} />
+        <>
+            {confirm && (
+                <ConfirmUpdatePicture removeConfirm={inputRemoveClick} localConfirm={inputLocalClick} hnadleConfirm={confirmPicture} />
+            )}
+            {prop.value && !remove ? (
+                <div className="input_profile_container_servo" onClick={handleImageClick}>
+                    {imageProfile ? (
+                        <img src={URL.createObjectURL(imageProfile)} />
                     ) : (
                         <img src={prop.value} />
                     )}
-                    <input className="background_input_form"
+                    <input className='input_profile_servo'
                         ref={inputRefBack}
                         onChange={handleImageBackChangeTeste}
                         name={prop.name} type={prop.type} placeholder={prop.placeholder} id={prop.name} />
                 </div>
-
             ) : (
-                <div className='input_container_background' onClick={handleImageClick}>
-                    {imageBack && !remove ? (
-                        <img src={URL.createObjectURL(imageBack)} />
+                <div className="input_profile_container_servo" onClick={handleImageClick}>
+                    {imageProfile && !remove ? (
+                        <img src={URL.createObjectURL(imageProfile)} />
                     ) : (
-                        <img src={background} />
+                        <img src={imgDefault} />
                     )}
-                    <input className="background_input_form"
+                    <input className='input_profile_servo'
                         ref={inputRefBack}
                         onChange={handleImageBackChangeTeste}
                         name={prop.name} type={prop.type} placeholder={prop.placeholder} id={prop.name} />
