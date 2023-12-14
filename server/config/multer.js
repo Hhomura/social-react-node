@@ -15,6 +15,9 @@ const storage = multer.diskStorage({
         if(file.fieldname == "background"){
             cb(null, './public/uploads/background');
         }
+        if(file.fieldname == "servo_profile"){
+            cb(null, './public/uploads/servos');
+        }
     }),
     filename: ((req, file, cb) =>{
 
@@ -24,7 +27,9 @@ const storage = multer.diskStorage({
         if(file.fieldname == "background"){
             cb(null, Date.now()+"Background" + path.extname(file.originalname));
         }
-
+        if(file.fieldname == "servo_profile"){
+            cb(null, Date.now()+"Servo" + path.extname(file.originalname));
+        }
     })
 });
 

@@ -17,6 +17,7 @@ interface props {
     handleClasse: any
     handleMitologia: any
     handleDescricao: any
+    handelFantasmaNobre: any
     submitRegister: any
     removeImg: any
     updateActive?: any
@@ -50,7 +51,7 @@ export default ((prop: props) => {
                             <div className='sub_container_servo_form'>
                                 <div className='left'>
 
-                                    <InputProfile handleOnChange={prop.handleImg} text='profile' label='Foto do Servo' name='profile' placeholder='' setRemmove={prop.removeImg} type="file" value={prop.img}/>
+                                    <InputProfile handleOnChange={prop.handleImg} text='servo_profile' label='Foto do Servo' name='servo_profile' placeholder='' setRemmove={prop.removeImg} type="file" value={prop.img}/>
 
                                 </div>
                                 <div className='rigth'>
@@ -87,7 +88,7 @@ export default ((prop: props) => {
                             <div className='sub_container_servo_form'>
                                 <div className='left'>
 
-                                    <InputProfile handleOnChange={prop.handleImg} text='profile' label='Foto do Servo' name='profile' placeholder='' setRemmove={prop.removeImg} type="file"/>
+                                    <InputProfile handleOnChange={prop.handleImg} text='servo_profile' label='Foto do Servo' name='servo_profile' placeholder='' setRemmove={prop.removeImg} type="file"/>
 
                                 </div>
                                 <div className='rigth'>
@@ -109,7 +110,7 @@ export default ((prop: props) => {
                                     </div>
 
                                     <InputSpinner data={dataMitologia} label='mitologia' type='text' name='mitologia' placeholder='' text='mitologia' handleOnChange={prop.handleMitologia} />
-
+                                    <Input label='fantasma_nobre' type='text' name='fantasma_nobre' placeholder='' text='Fantasma Nobre' handleOnChange={prop.handelFantasmaNobre} />
                                     <InputTextArea label='descricao' name='descricao' placeholder='' text='descrição' handleOnChange={prop.handleDescricao} />
                                 </div>
                             </div>

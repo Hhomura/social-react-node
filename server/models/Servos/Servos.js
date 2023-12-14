@@ -1,17 +1,13 @@
 const db = require('../../controller/Databse')
 
-const alinhamento = require('./Alinhamento');
-const classe = require('./Classes');
-
 const servos = db.sequelize.define('servos', {
-
     nome: {
         type: db.Sequelize.STRING
     },
     descricao: {
         type: db.Sequelize.STRING
     },
-    profile:{
+    foto:{
         type: db.Sequelize.STRING
     },
     pais:{
@@ -23,33 +19,23 @@ const servos = db.sequelize.define('servos', {
     especie:{
         type: db.Sequelize.STRING
     },
-    genero:{
+    altura:{
         type: db.Sequelize.STRING
     },
-    altura:{
-        type: db.Sequelize.DECIMAL
-    },
     peso:{
-        type: db.Sequelize.DECIMAL
+        type: db.Sequelize.STRING
     },
-    fkAlinhamento:{
-        type: db.Sequelize.INTEGER,
-        references:{
-            model: 'alinhamento',
-            key: 'id'
-        }
+    alinhamento:{
+        type: db.Sequelize.STRING,
     },
-
-    fkClasse:{
-        type: db.Sequelize.INTEGER,
-        references:{
-            model: 'classes',
-            key: 'id'
-        }
+    classe:{
+        type: db.Sequelize.STRING,
+    },
+    fantasma_nobre:{
+        type: db.Sequelize.STRING,
     }
 })
 
-servos.belongsTo(alinhamento, {foreignKey: 'fkAlinhamento'})
-servos.belongsTo(classe, {foreignKey: 'fkClasse'})
+//servos.sync({force:true})
 
 module.exports = servos;
