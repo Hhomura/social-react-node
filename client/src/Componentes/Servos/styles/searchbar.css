@@ -1,0 +1,37 @@
+.container_searchbar{
+    width: 60%;
+    background-color: white;
+    margin-top: 40px;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 50px;
+}
+
+.container_searchbar > input{
+    width: 100%;
+    border: none;
+    padding: 10px;
+    font-size: 17px;
+    border-radius: 10px;
+    color: black;
+    outline: none;
+}
+
+.container_searchbar > button{
+    height: 100%;
+    padding: 10px;
+    transition: 0.3s;
+    background-color: white;
+    border: none;
+    border-radius: 10px;
+}
+
+.container_searchbar > button > svg{
+    font-size: 20px;
+    color: rgb(213, 1, 1);
+}
+
+.container_searchbar > button:hover{
+    cursor: pointer;
+    background-color: gray;
+}

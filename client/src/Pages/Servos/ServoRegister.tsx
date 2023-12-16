@@ -64,12 +64,12 @@ export default (() =>{
     function handleFantasmaNobre(e:any){
         setFantasmaNobre(e.target.value)
     }
-    
+
     function submitRegister(e:any){
         e.preventDefault()
 
         serviceServo.createServo(nome, img, pais, especie, altura, peso, alinhamento, classe, mitologia, fantasmaNobre, descricao, setStatus, setMsg).then(() =>{
-            history('/')
+            history('/servos')
         }).catch(() =>{
             history('/servo-register')
             console.log("Error as,mdownadfBFYUB")

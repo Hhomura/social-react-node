@@ -1,0 +1,41 @@
+.item_servo_container{
+    border: 2px solid rgb(255, 255, 255);
+    height: 20%;
+    width: 60%;
+    margin-top: 20px;
+    border-radius: 10px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.item_servo_content{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    opacity: 0.3;
+    transition: 0.5s;
+}
+
+.item_servo_content > img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+    transition: 0.5s;
+}
+
+.item_servo_content_title{
+    position: absolute;
+}
+
+.item_servo_content > img:hover{
+    cursor: pointer;
+}
+
+.item_servo_content:hover{
+    opacity: 0.9;
+}

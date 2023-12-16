@@ -27,6 +27,14 @@ module.exports = {
           .catch((error) => {
             res.status(401).json("Erro no cadastro: " + error);
           });
+    },
+    
+    getAllServo: (req, res) =>{
+        servo.findAll().then((data) =>{
+            res.status(200).json({ msg: "Servo Registrado", data: data })
+        }).catch((error) =>{
+            console.log(error)
+        })
     }
 
 }

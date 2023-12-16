@@ -1,0 +1,12 @@
+.radio_buttons_container{
+    width: 20%;
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.radio_buttons_container > label{
+    color: black;
+}

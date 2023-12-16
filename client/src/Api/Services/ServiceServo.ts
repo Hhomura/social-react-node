@@ -34,6 +34,10 @@ const serviceServo = {
         } catch (error: any) {
             console.log(error)
         }
+    }),
+
+    getAllServos:(async() =>{
+        return Api.get('/servos/getAllServos')
     })
 }
 

@@ -10,6 +10,7 @@ import NotFound from "../Componentes/layouts/NotFound";
 import {useContext} from 'react'
 import { AuthContext } from "../Context/AuthContext";
 import ServoRegister from "../Pages/Servos/ServoRegister";
+import ServoHome from "../Pages/Servos/ServoHome";
 
 const Routes = () =>{
   
@@ -56,6 +57,10 @@ const Routes = () =>{
                   {
                     path: '/servo-register',
                     element: <ServoRegister/>
+                  },
+                  {
+                    path: '/servos',
+                    element: <ServoHome/>
                   }
             ]
         }

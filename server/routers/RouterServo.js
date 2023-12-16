@@ -11,6 +11,10 @@ router.get('/', (req, res) =>{
     res.send('Goku');
 })
 
+router.get('/getAllServos', (req, res) =>{
+    servoDTO.getAllServo(req, res);
+})
+
 router.post('/register', cpUpload, (req,res) =>{
     servoDTO.addServo(req, res);
 })

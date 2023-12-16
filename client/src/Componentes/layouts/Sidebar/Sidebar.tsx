@@ -24,7 +24,7 @@ export default ((props: prop) => {
     ];
 
     const dataPersonagem = [
-        { title: 'Servos' , link: "/"},
+        { title: 'Servos' , link: "/servos"},
         { title: 'Magias' , link: '/'},
         { title: 'Outros' , link: '/'},
         // ... outros dados

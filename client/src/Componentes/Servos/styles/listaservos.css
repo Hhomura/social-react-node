@@ -1,0 +1,14 @@
+.lista_servos_container{
+    /*border: 2px solid red;*/
+    margin-top: 20px;
+    width: 100%;
+    height: 80%;
+    display: flex;
+    overflow: auto;
+    flex-direction: column;
+    align-items: center;
+}
+
+.lista_servos_container::-webkit-scrollbar {
+    display: none;
+  }

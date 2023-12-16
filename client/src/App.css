@@ -16,6 +16,7 @@ h1{
 .parent{
   display: flex;
   position: relative;
+  height: 100%;
 }
 
 .parent_sub{
