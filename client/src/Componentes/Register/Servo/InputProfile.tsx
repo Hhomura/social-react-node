@@ -11,7 +11,8 @@ interface props {
     placeholder: string,
     handleOnChange: any,
     value?: any,
-    setRemmove: any
+    setRemmove: any,
+    classe?:any
 }
 
 export default ((prop: props) => {
@@ -50,7 +51,7 @@ export default ((prop: props) => {
                 <ConfirmUpdatePicture removeConfirm={inputRemoveClick} localConfirm={inputLocalClick} hnadleConfirm={confirmPicture} />
             )}
             {prop.value && !remove ? (
-                <div className="input_profile_container_servo" onClick={handleImageClick}>
+                <div className= {prop.classe? prop.classe: "input_profile_container_servo"}  onClick={handleImageClick}>
                     {imageProfile ? (
                         <img src={URL.createObjectURL(imageProfile)} />
                     ) : (
@@ -62,7 +63,7 @@ export default ((prop: props) => {
                         name={prop.name} type={prop.type} placeholder={prop.placeholder} id={prop.name} />
                 </div>
             ) : (
-                <div className="input_profile_container_servo" onClick={handleImageClick}>
+                <div className= {prop.classe? prop.classe: "input_profile_container_servo"} onClick={handleImageClick}>
                     {imageProfile && !remove ? (
                         <img src={URL.createObjectURL(imageProfile)} />
                     ) : (

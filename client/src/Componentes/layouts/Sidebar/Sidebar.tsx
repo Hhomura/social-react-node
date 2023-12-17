@@ -33,7 +33,7 @@ export default ((props: prop) => {
     const dataCadastro = [
         { title: 'Adm' , link: "/register"},
         { title: 'Servos' , link: '/servo-register'},
-        { title: 'Magias' , link: '/'},
+        { title: 'Series' , link: '/series-register'}
         // ... outros dados
     ];
 

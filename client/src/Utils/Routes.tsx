@@ -11,6 +11,7 @@ import {useContext} from 'react'
 import { AuthContext } from "../Context/AuthContext";
 import ServoRegister from "../Pages/Servos/ServoRegister";
 import ServoHome from "../Pages/Servos/ServoHome";
+import SeriesRegister from "../Pages/Series/SeriesRegister";
 
 const Routes = () =>{
   
@@ -61,6 +62,10 @@ const Routes = () =>{
                   {
                     path: '/servos',
                     element: <ServoHome/>
+                  },
+                  {
+                    path: '/series-register',
+                    element: <SeriesRegister/>
                   }
             ]
         }
