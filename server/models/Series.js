@@ -18,4 +18,6 @@ const series = db.sequelize.define('series', {
     }
 })
 
+//series.sync({force: true})
+
 module.exports = series;

@@ -16,7 +16,13 @@ const storage = multer.diskStorage({
             cb(null, './public/uploads/background');
         }
         if(file.fieldname == "servo_profile"){
-            cb(null, './public/uploads/servos');
+            cb(null, './public/uploads/servos_profile');
+        }
+        if(file.fieldname == "profile_series"){
+            cb(null, './public/uploads/series/profile');
+        }
+        if(file.fieldname == "background_series"){
+            cb(null, './public/uploads/series/background');
         }
     }),
     filename: ((req, file, cb) =>{
@@ -29,6 +35,12 @@ const storage = multer.diskStorage({
         }
         if(file.fieldname == "servo_profile"){
             cb(null, Date.now()+"Servo" + path.extname(file.originalname));
+        }
+        if(file.fieldname == "profile_series"){
+            cb(null, Date.now()+"SeriesProfile" + path.extname(file.originalname));
+        }
+        if(file.fieldname == "background_series"){
+            cb(null, Date.now()+"SeriesBackground" + path.extname(file.originalname));
         }
     })
 });
