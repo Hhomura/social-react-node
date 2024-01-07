@@ -18,6 +18,7 @@ export default (() =>{
     const [mitologia, setMitologia] = useState("")
     const [fantasmaNobre, setFantasmaNobre] = useState("")
     const [descricao, setDescricao] = useState("")
+    const [franquia, setFranquia] = useState('')
     const [img, setImg] = useState('')
     const { setMsg, setStatus } = useContext(AuthContext);
 
@@ -57,6 +58,10 @@ export default (() =>{
         setMitologia(e.target.value)
     }
 
+    function handleFRanquia(e:any){
+        setFranquia(e.target.value)
+    }
+
     function handleDescricao(e:any){
         setDescricao(e.target.value)
     }
@@ -68,7 +73,7 @@ export default (() =>{
     function submitRegister(e:any){
         e.preventDefault()
 
-        serviceServo.createServo(nome, img, pais, especie, altura, peso, alinhamento, classe, mitologia, fantasmaNobre, descricao, setStatus, setMsg).then(() =>{
+        serviceServo.createServo(nome, img, pais, especie, altura, peso, alinhamento, classe, mitologia, franquia, fantasmaNobre, descricao, setStatus, setMsg).then(() =>{
             history('/servos')
         }).catch(() =>{
             history('/servo-register')
@@ -82,7 +87,7 @@ export default (() =>{
             <h1 style={{marginBottom: 10}}>
                 Cadastro de Servos
             </h1>
-            <Form handleNome={handleNome} handleAlinhamento={handleAlinhamento} handleAltura={handleAltura} handleClasse={handleClasse} handleDescricao={handleDescricao} handleEspecie={handleEspecie} handleImg={handleImg} handleMitologia={handleMitologia} handlePais={handlePais} handlePeso={handlePeso} submitRegister={submitRegister} removeImg={setImg} handelFantasmaNobre={handleFantasmaNobre}/>
+            <Form handleNome={handleNome} handleAlinhamento={handleAlinhamento} handleAltura={handleAltura} handleClasse={handleClasse} handleDescricao={handleDescricao} handleEspecie={handleEspecie} handleImg={handleImg} handleMitologia={handleMitologia} handleFranquia={handleFRanquia} handlePais={handlePais} handlePeso={handlePeso} submitRegister={submitRegister} removeImg={setImg} handelFantasmaNobre={handleFantasmaNobre}/>
         </div>
     )
 })

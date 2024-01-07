@@ -24,5 +24,13 @@ module.exports = {
         }).catch((error) =>{
             res.status(401).json("Erro no cadastro: " + error);
         })
+    }),
+
+    getAll: ((req, res) =>{
+        series.findAll().then((data) =>{
+            res.status(200).json({ msg: "Franquia Registrada", data: data})
+        }).catch((error) =>{
+            res.status(401).json("Erro na busca: " + error);
+        })
     })
 }

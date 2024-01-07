@@ -14,5 +14,8 @@ router.post('/register', cpUpload, (req, res) =>{
 router.get('/', (req, res) =>{
     res.send('Series');
 })
+router.get('/getAll', (req, res) =>{
+    seriesDTO.getAll(req, res)
+})
 
 module.exports = router;

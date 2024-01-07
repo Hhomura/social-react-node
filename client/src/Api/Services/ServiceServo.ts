@@ -2,7 +2,7 @@ import Api from '../Api'
 
 const serviceServo = {
 
-    createServo: (async (nome: any, foto: any, pais: any, especie: any, altura: any, peso: any, alinhamento: any, classe: any, mitologia: any, fantasmaNobre: any, descricao: any,  setStatus:any, setMsg:any) => {
+    createServo: (async (nome: any, foto: any, pais: any, especie: any, altura: any, peso: any, alinhamento: any, classe: any, mitologia: any, series:any, fantasmaNobre: any, descricao: any,  setStatus:any, setMsg:any) => {
 
         try {
             const formData = new FormData();
@@ -15,6 +15,7 @@ const serviceServo = {
             formData.append('classe', classe)
             formData.append('peso', peso)
             formData.append('mitologia', mitologia)
+            formData.append('series', series)
             formData.append('fantasma_nobre', fantasmaNobre)
             formData.append('descricao', descricao)
 

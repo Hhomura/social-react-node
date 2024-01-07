@@ -17,16 +17,16 @@ export default ((props: prop) => {
     const [showContentCadastro, setShowContentCadastro] = useState(false)
 
     const dataSeries = [
-        { title: 'Fate Series' , link: "/"},
-        { title: 'Madoka Series' , link: '/'},
-        { title: 'Suzumiya Haruhi Series' , link: '/'},
+        { title: 'Fate Stay Night' , link: "/"},
+        { title: 'Madoka Magic' , link: '/'},
+        { title: 'Tsukihime' , link: '/'},
         // ... outros dados
     ];
 
     const dataPersonagem = [
         { title: 'Servos' , link: "/servos"},
         { title: 'Magias' , link: '/'},
-        { title: 'Outros' , link: '/'},
+        { title: 'Personagens' , link: '/'},
         // ... outros dados
     ];
 

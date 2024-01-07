@@ -32,7 +32,7 @@
 }
 
 .left{
-    padding: 40px;
+    padding: 20px;
     padding-top: 5px;
 }
 
@@ -44,8 +44,8 @@
 
 .rigth{
     width: auto;
-    padding: 40px;
-    padding-top: 55px;
+    padding: 20px;
+    padding-top: 35px;
     width: 70%;
     border-left: 3px solid white;
 }
@@ -65,7 +65,8 @@
 
 .input_servo_container input, .input_servo_container select{
     border: 5px;
-    padding: 15px;
+    padding: 13px;
+    /*padding: 15px;*/
     border-radius: 5px;
     color: black;
     font-size: 15px;

@@ -5,6 +5,7 @@ import InputTextArea from './inputTextArea'
 import SubmitButton from '../SubmitButton'
 import datas from '../../../Api/repository/DataRepositorys'
 import InputProfile from '../Servo/InputProfile'
+import repositoryFranquias from '../../../Api/repository/SeriesRepository'
 
 interface props {
     handleImg: any
@@ -18,6 +19,7 @@ interface props {
     handleMitologia: any
     handleDescricao: any
     handelFantasmaNobre: any
+    handleFranquia: any
     submitRegister: any
     removeImg: any
     updateActive?: any
@@ -31,6 +33,7 @@ interface props {
     classe?: any
     mitologia?: any
     descricao?: any
+    idFranquia?: any
 }
 
 export default ((prop: props) => {
@@ -40,6 +43,7 @@ export default ((prop: props) => {
     const dataEspecie: string[] = datas.especie
     const dataMitologia: string[] = datas.mitologias
     const dataPaises: string[] = datas.paises.sort()
+    const dataFranquias: string[] = repositoryFranquias.franquias;
 
     return (
 
@@ -73,6 +77,10 @@ export default ((prop: props) => {
                                     </div>
 
                                     <InputSpinner data={dataMitologia} label='mitologia' type='text' name='mitologia' placeholder='' text='mitologia' handleOnChange={prop.handleMitologia} value={prop.mitologia}/>
+
+                                    <InputSpinner data={dataFranquias} label='franquia' type='text' name='series' placeholder='' text='franquia' handleOnChange={prop.handleFranquia} value={prop.idFranquia}/>
+
+                                    <Input label='fantasma_nobre' type='text' name='fantasma_nobre' placeholder='' text='Fantasma Nobre' handleOnChange={prop.handelFantasmaNobre} />
 
                                     <InputTextArea label='descricao' name='descricao' placeholder='' text='descrição' handleOnChange={prop.handleDescricao} value={prop.descricao}/>
                                 </div>
@@ -110,6 +118,9 @@ export default ((prop: props) => {
                                     </div>
 
                                     <InputSpinner data={dataMitologia} label='mitologia' type='text' name='mitologia' placeholder='' text='mitologia' handleOnChange={prop.handleMitologia} />
+
+                                    <InputSpinner data={dataFranquias} label='franquia' type='text' name='series' placeholder='' text='franquia' handleOnChange={prop.handleFranquia} value={prop.idFranquia}/>
+
                                     <Input label='fantasma_nobre' type='text' name='fantasma_nobre' placeholder='' text='Fantasma Nobre' handleOnChange={prop.handelFantasmaNobre} />
                                     <InputTextArea label='descricao' name='descricao' placeholder='' text='descrição' handleOnChange={prop.handleDescricao} />
                                 </div>

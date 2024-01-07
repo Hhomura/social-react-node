@@ -28,6 +28,10 @@ const service = {
         }catch(error: any){
             console.log(error)
         }
+    }),
+
+    getAllFranquias: (async() =>{
+        return await Api.get('/series/getAll')
     })
 }
 

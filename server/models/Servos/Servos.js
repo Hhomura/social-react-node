@@ -1,4 +1,5 @@
 const db = require('../../controller/Databse')
+const series = require('../Series')
 
 const servos = db.sequelize.define('servos', {
     nome: {
@@ -33,9 +34,17 @@ const servos = db.sequelize.define('servos', {
     },
     fantasma_nobre:{
         type: db.Sequelize.STRING,
+    },
+    idFranquia: {
+        type: db.Sequelize.INTEGER,
+        references: {
+            model: 'series',
+            key: 'id'
+        }
     }
 })
 
+servos.belongsTo(series, {foreignKey: 'idFranquia', allowNull: false});
 //servos.sync({force:true})
 
 module.exports = servos;
