@@ -12,6 +12,8 @@ import { AuthContext } from "../Context/AuthContext";
 import ServoRegister from "../Pages/Servos/ServoRegister";
 import ServoHome from "../Pages/Servos/ServoHome";
 import SeriesRegister from "../Pages/Series/SeriesRegister";
+import SearchPage from "../Pages/SearchPage";
+import ServoProfile from "../Pages/Servos/ServoProfile";
 
 const Routes = () =>{
   
@@ -66,6 +68,14 @@ const Routes = () =>{
                   {
                     path: '/series-register',
                     element: <SeriesRegister/>
+                  },
+                  {
+                    path: '/search',
+                    element: <SearchPage/>
+                  },
+                  {
+                    path: '/servo-profile/:name',
+                    element: <ServoProfile/>
                   }
             ]
         }
@@ -87,6 +97,14 @@ const Routes = () =>{
                   {
                     path: '/register',
                     element:<NotFound/>
+                  },
+                  {
+                    path: '/search',
+                    element: <SearchPage/>
+                  },
+                  {
+                    path: '/servo-profile/:name',
+                    element: <ServoProfile/>
                   }
                   
             ]

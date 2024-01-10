@@ -17,27 +17,27 @@ export default ((props: prop) => {
     const [showContentCadastro, setShowContentCadastro] = useState(false)
 
     const dataSeries = [
-        { title: 'Fate Stay Night' , link: "/"},
-        { title: 'Madoka Magic' , link: '/'},
-        { title: 'Tsukihime' , link: '/'},
+        { title: 'Fate Stay Night', link: "/" },
+        { title: 'Madoka Magic', link: '/' },
+        { title: 'Tsukihime', link: '/' },
         // ... outros dados
     ];
 
     const dataPersonagem = [
-        { title: 'Servos' , link: "/servos"},
-        { title: 'Magias' , link: '/'},
-        { title: 'Personagens' , link: '/'},
+        { title: 'Servos', link: "/servos" },
+        { title: 'Magias', link: '/' },
+        { title: 'Personagens', link: '/' },
         // ... outros dados
     ];
 
     const dataCadastro = [
-        { title: 'Adm' , link: "/register"},
-        { title: 'Servos' , link: '/servo-register'},
-        { title: 'Series' , link: '/series-register'}
+        { title: 'Adm', link: "/register" },
+        { title: 'Servos', link: '/servo-register' },
+        { title: 'Series', link: '/series-register' }
         // ... outros dados
     ];
 
-    function showContent(value:boolean, setValue:any){
+    function showContent(value: boolean, setValue: any) {
         setValue(!value)
     }
 
@@ -60,32 +60,32 @@ export default ((props: prop) => {
                     </Link>
                 </div>
 
-                <div className='sidebar_item' onClick = {(() => showContent(showContentSeries, setShowContentSeries))}>
+                <div className='sidebar_item' onClick={(() => showContent(showContentSeries, setShowContentSeries))}>
                     <div className='nav_item'>
                         <BsDiamondHalf />
                         <span>
                             Séries
                         </span>
-                        <SideBarItemContent data={dataSeries} active= {showContentSeries ? "active slideTopToBottom" : "disabled"}/>
+                        <SideBarItemContent data={dataSeries} active={showContentSeries ? "active slideTopToBottom" : "disabled"} />
                     </div>
                 </div>
 
-                <div className='sidebar_item' onClick = {(() => showContent(showContentPersonagem, setShowContentPersonagem))}>
+                <div className='sidebar_item' onClick={(() => showContent(showContentPersonagem, setShowContentPersonagem))}>
                     <div className='nav_item'>
                         <BsStars />
                         <span>
                             Personagens
                         </span>
-                        <SideBarItemContent data={dataPersonagem} active= {showContentPersonagem ? "active slideTopToBottom" : "disabled"}/>
+                        <SideBarItemContent data={dataPersonagem} active={showContentPersonagem ? "active slideTopToBottom" : "disabled"} />
                     </div>
                 </div>
                 <div className='sidebar_item'>
-                    <div className='nav_item'>
+                    <Link to='/search'>
                         <BsSearch />
                         <span>
                             Busca
                         </span>
-                    </div>
+                    </Link>
                 </div>
                 <div className='sidebar_item'>
                     <Link to="/profile">
@@ -101,7 +101,7 @@ export default ((props: prop) => {
                         <span>
                             Cadastro
                         </span>
-                        <SideBarItemContent data={dataCadastro} active={showContentCadastro ? "active slideTopToBottom" : "disabled"}/>
+                        <SideBarItemContent data={dataCadastro} active={showContentCadastro ? "active slideTopToBottom" : "disabled"} />
                     </div>
                 </div>
                 <div className='sidebar_item'>
