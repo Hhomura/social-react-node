@@ -15,6 +15,10 @@ router.get('/getAllServos', (req, res) =>{
     servoDTO.getAllServo(req, res);
 })
 
+router.get('/getOne/:nome', (req, res) =>{
+    servoDTO.getOne(req, res);
+})
+
 router.post('/register', cpUpload, (req,res) =>{
     servoDTO.addServo(req, res);
 })

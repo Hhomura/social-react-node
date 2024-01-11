@@ -18,4 +18,8 @@ router.get('/getAll', (req, res) =>{
     seriesDTO.getAll(req, res)
 })
 
+router.get('/getOne/:id', (req,res) =>{
+    seriesDTO.getOne(req, res)
+})
+
 module.exports = router;

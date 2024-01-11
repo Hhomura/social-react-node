@@ -32,5 +32,13 @@ module.exports = {
         }).catch((error) =>{
             res.status(401).json("Erro na busca: " + error);
         })
+    }),
+
+    getOne: ((req, res) =>{
+        series.findOne({where: {id: req.params.id}}).then((data) =>{
+            res.status(200).json({data: data})
+        }).catch((error) =>{
+            console.log(error)
+        })
     })
 }

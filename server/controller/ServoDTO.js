@@ -1,5 +1,6 @@
 const servo = require('../models/Servos/Servos')
-const series = require('../models/Series')
+const series = require('../models/Series');
+const servos = require('../models/Servos/Servos');
 
 module.exports = {
 
@@ -44,6 +45,16 @@ module.exports = {
         servo.findAll().then((data) => {
             res.status(200).json({ msg: "Servo Registrado", data: data })
         }).catch((error) => {
+            console.log(error)
+        })
+    }
+
+    ,
+
+    getOne: (req, res) =>{
+        servos.findOne({where: {nome: req.params.nome}}).then((data) =>{
+            res.status(200).json({data: data})
+        }).catch((error) =>{
             console.log(error)
         })
     }

@@ -3,6 +3,8 @@ import background2 from '../../../public/background.jpg'
 import profileDefault from '../../../public/profile-picture.png'
 import '../../Pages/styles/profile.css'
 import { useEffect, useState } from 'react'
+import StringUtils from '../../Utils/StringUtils'
+import Files from '../../Api/Files'
 
 interface props {
     id: string | null
@@ -17,40 +19,26 @@ interface props {
 
 export default ((prop: props) => {
 
-    const URL = "http://localhost:8080/files/"
-
     const [cookies] = useCookies(['user'])
     const adm = cookies.user != undefined ? cookies.user.adm : null;
     const profile = cookies.user != undefined ? cookies.user.profile : '';
     const background = cookies.user != undefined ? cookies.user.background : '';
-    var urlProfile = convertURL(profile);
-    var urlBackground = convertURL(background);
+    var urlProfile = StringUtils.convertURLImage(profile);
+    var urlBackground = StringUtils.convertURLImage(background);
     const [profileOfc, setProfileOfc] = useState('');
     const [backgroundOfc, setBackgroundOfc] = useState('');
 
-    console.log(prop.profile)
-    console.log(prop.background)
-
     function updateURLs(){
         if (urlBackground != '') {
-            setBackgroundOfc(`${URL+urlBackground}`)
+            setBackgroundOfc(`${Files.baseURL+urlBackground}`)
         }else{
             setBackgroundOfc('')
         }
         if (urlProfile != '') {
-            setProfileOfc(`${URL+urlProfile}`)
+            setProfileOfc(`${Files.baseURL+urlProfile}`)
         }else{
             setProfileOfc('')
         }
-    }
-
-    function convertURL(url: string | null): string {
-        // Usa a função replace com uma expressão regular para substituir os caracteres de escape.
-        if (url != null) {
-            const convertedURL = url.replace(/\\/g, '/');
-            return convertedURL;
-        }
-        return '';
     }
 
     useEffect(() => {

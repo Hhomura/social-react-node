@@ -39,6 +39,10 @@ const serviceServo = {
 
     getAllServos:(async() =>{
         return Api.get('/servos/getAllServos')
+    }),
+
+    getOneServo: (async(nome:any) =>{
+        return Api.get(`/servos/getOne/${nome}`)
     })
 }
 

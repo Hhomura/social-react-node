@@ -32,6 +32,10 @@ const service = {
 
     getAllFranquias: (async() =>{
         return await Api.get('/series/getAll')
+    }),
+
+    getOne: (async(id:any) =>{
+        return Api.get(`/series/getOne/${id}`)
     })
 }
 
