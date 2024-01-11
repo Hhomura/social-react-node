@@ -33,6 +33,7 @@ interface props {
     classe?: any
     mitologia?: any
     descricao?: any
+    fantasmaNobre?:any
     idFranquia?: any
 }
 
@@ -80,7 +81,7 @@ export default ((prop: props) => {
 
                                     <InputSpinner data={dataFranquias} label='franquia' type='text' name='series' placeholder='' text='franquia' handleOnChange={prop.handleFranquia} value={prop.idFranquia}/>
 
-                                    <Input label='fantasma_nobre' type='text' name='fantasma_nobre' placeholder='' text='Fantasma Nobre' handleOnChange={prop.handelFantasmaNobre} />
+                                    <Input label='fantasma_nobre' type='text' name='fantasma_nobre' placeholder='' text='Fantasma Nobre' handleOnChange={prop.handelFantasmaNobre} value={prop.fantasmaNobre}/>
 
                                     <InputTextArea label='descricao' name='descricao' placeholder='' text='descrição' handleOnChange={prop.handleDescricao} value={prop.descricao}/>
                                 </div>

@@ -2,6 +2,8 @@ import '../styles/forminputprofile.css'
 import { useRef, useState } from 'react'
 import imgDefault from '../../../../public/profile-picture.png'
 import ConfirmUpdatePicture from '../../layouts/ConfirmUpdatePicture'
+import Files from '../../../Api/Files'
+import StringUtils from '../../../Utils/StringUtils'
 
 interface props {
     type: any,
@@ -55,7 +57,7 @@ export default ((prop: props) => {
                     {imageProfile ? (
                         <img src={URL.createObjectURL(imageProfile)} />
                     ) : (
-                        <img src={prop.value} />
+                        <img src={Files.baseURL + StringUtils.convertURLImage(prop.value)} />
                     )}
                     <input className='input_profile_servo'
                         ref={inputRefBack}

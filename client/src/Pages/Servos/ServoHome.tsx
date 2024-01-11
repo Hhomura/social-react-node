@@ -2,14 +2,19 @@ import '../styles/servohome.css'
 import SearchBar from '../../Componentes/Servos/Search/SearchBar';
 import ListaServos from '../../Componentes/Servos/ListServos/ListaServos';
 import servosRepository from '../../Api/repository/ServosRepository';
+import { useEffect, useState } from 'react';
 
 export default (() =>{
 
-    const lista = servosRepository.servos
-
+    const [lista, setLista] = useState<any | null>()
+    
     function searchCategorias(){
         console.log("Ze")
     }
+
+    useEffect(() =>{
+        setLista(servosRepository.servos)
+    }, [])
 
     console.log(lista)
     
