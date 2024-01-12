@@ -2,14 +2,7 @@ const user = require('../models/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const fs = require('fs');
-
-function convertURL(url) {
-  if (url != null) {
-    const convertedURL = url.replace(/\\/g, '/');
-    return convertedURL;
-  }
-  return '';
-}
+const Utils = require('../Utils');
 
 module.exports = {
 
@@ -64,11 +57,11 @@ module.exports = {
       console.log(userDelete)
       if (userDelete.profile_url != '') {
         console.log("Prof")
-        fs.unlinkSync(convertURL(userDelete.profile_url))
+        fs.unlinkSync(Utils.convertUrl(userDelete.profile_url))
       }
       if (userDelete.background != '') {
         console.log("Back")
-        fs.unlinkSync(convertURL(userDelete.background))
+        fs.unlinkSync(Utils.convertUrl(userDelete.background))
       }
 
       user.destroy({ where: { id: req.params.id } }).then(() => {
@@ -132,11 +125,11 @@ module.exports = {
     user.findOne({ where: { id: req.params.id } }).then((userUpdate) => {
       if (userUpdate.profile_url != '' && req.body.profile == 'removeu' ||
       userUpdate.profile_url != '' && pathProfile != ""){
-        fs.unlinkSync(convertURL(userUpdate.profile_url))
+        fs.unlinkSync(Utils.convertUrl(userUpdate.profile_url))
       }
       if (userUpdate.background != '' && req.body.background == 'removeu' ||
       userUpdate.background != '' && pathBackground != "") {
-        fs.unlinkSync(convertURL(userUpdate.background))
+        fs.unlinkSync(Utils.convertUrl(userUpdate.background))
       }
     }).catch((error) => {
       console.log(error)

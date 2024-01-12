@@ -43,7 +43,7 @@ export default ((prop: props) => {
 
     useEffect(() => {
         updateURLs()
-    }, [prop.profile || prop.background || cookies.user.profile || cookies.user.background])
+    }, [ prop.background, prop.profile || cookies.user.profile || cookies.user.background])
 
 
     return (

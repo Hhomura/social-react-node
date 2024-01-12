@@ -23,4 +23,12 @@ router.post('/register', cpUpload, (req,res) =>{
     servoDTO.addServo(req, res);
 })
 
+router.post('/update/:id', cpUpload, (req, res) =>{
+    servoDTO.updateServo(req, res)
+})
+
+router.delete('/delete/:id', (req, res) =>{
+    servoDTO.deleteServo(req, res)
+})
+
 module.exports = router;

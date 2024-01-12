@@ -87,7 +87,7 @@ export default ((prop: props) => {
                                 </div>
                             </div>
                         </div>
-                        <SubmitButton text='Cadastrar' name='cadastrar' type="submit" />
+                        <SubmitButton text='Atualizar' name='Atualizar' type="submit" />
                     </form >
                 </>
             ) : (
@@ -120,7 +120,7 @@ export default ((prop: props) => {
 
                                     <InputSpinner data={dataMitologia} label='mitologia' type='text' name='mitologia' placeholder='' text='mitologia' handleOnChange={prop.handleMitologia} />
 
-                                    <InputSpinner data={dataFranquias} label='franquia' type='text' name='series' placeholder='' text='franquia' handleOnChange={prop.handleFranquia} value={prop.idFranquia}/>
+                                    <InputSpinner data={dataFranquias} label='franquia' type='text' name='series' placeholder='' text='franquia' handleOnChange={prop.handleFranquia}/>
 
                                     <Input label='fantasma_nobre' type='text' name='fantasma_nobre' placeholder='' text='Fantasma Nobre' handleOnChange={prop.handelFantasmaNobre} />
                                     <InputTextArea label='descricao' name='descricao' placeholder='' text='descrição' handleOnChange={prop.handleDescricao} />
