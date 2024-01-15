@@ -60,7 +60,7 @@
 }
 
 .sidebar_item:hover a{
-    /*background-color: gray;*/
+    /*border: 2px solid red;*/
     border-radius: 10px;
 }
 

@@ -6,6 +6,8 @@ import { useEffect, useState } from 'react';
 
 export default (() =>{
 
+    var lista2 = servosRepository.servos
+
     const [lista, setLista] = useState<any | null>()
     
     function searchCategorias(){
@@ -13,10 +15,12 @@ export default (() =>{
     }
 
     useEffect(() =>{
+        console.log("Opa")
         setLista(servosRepository.servos)
     }, [])
 
     console.log(lista)
+    console.log(lista2)
     
     return(
         <div className="container_servohome">

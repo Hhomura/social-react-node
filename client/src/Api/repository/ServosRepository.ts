@@ -8,7 +8,7 @@ serviceServo.getAllServos().then((data) =>{
     })
 })
 
-const servosRepository ={
+const servosRepository = {
     servos: lista
 }
 

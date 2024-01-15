@@ -16,12 +16,14 @@ export default ((props: prop) => {
     const [showContentSeries, setShowContentSeries] = useState(false)
     const [showContentCadastro, setShowContentCadastro] = useState(false)
 
+    /*
     const dataSeries = [
         { title: 'Fate Stay Night', link: "/" },
         { title: 'Madoka Magic', link: '/' },
         { title: 'Tsukihime', link: '/' },
         // ... outros dados
     ];
+    */
 
     const dataPersonagem = [
         { title: 'Servos', link: "/servos" },
@@ -50,7 +52,6 @@ export default ((props: prop) => {
             </header>
 
             <nav className='sidebar_nav'>
-
                 <div className='sidebar_item'>
                     <Link to="/">
                         <BsHouseDoor />
@@ -61,13 +62,12 @@ export default ((props: prop) => {
                 </div>
 
                 <div className='sidebar_item' onClick={(() => showContent(showContentSeries, setShowContentSeries))}>
-                    <div className='nav_item'>
+                    <Link to='/series'>
                         <BsDiamondHalf />
                         <span>
                             Séries
                         </span>
-                        <SideBarItemContent data={dataSeries} active={showContentSeries ? "active slideTopToBottom" : "disabled"} />
-                    </div>
+                    </Link>
                 </div>
 
                 <div className='sidebar_item' onClick={(() => showContent(showContentPersonagem, setShowContentPersonagem))}>

@@ -14,6 +14,8 @@ import ServoHome from "../Pages/Servos/ServoHome";
 import SeriesRegister from "../Pages/Series/SeriesRegister";
 import SearchPage from "../Pages/SearchPage";
 import ServoProfile from "../Pages/Servos/ServoProfile";
+import SeriesHome from "../Pages/Series/SeriesHome";
+import SeriesProfile from "../Pages/Series/SeriesProfile";
 
 const Routes = () =>{
   
@@ -76,6 +78,14 @@ const Routes = () =>{
                   {
                     path: '/servo-profile/:name',
                     element: <ServoProfile/>
+                  },
+                  {
+                    path: '/series',
+                    element: <SeriesHome/>
+                  },
+                  {
+                    path: '/series-profile/:nome',
+                    element: <SeriesProfile/>
                   }
             ]
         }
@@ -105,6 +115,14 @@ const Routes = () =>{
                   {
                     path: '/servo-profile/:name',
                     element: <ServoProfile/>
+                  },
+                  {
+                    path: '/series',
+                    element: <SeriesHome/>
+                  },
+                  {
+                    path: '/series-profile/:nome',
+                    element: <SeriesProfile/>
                   }
                   
             ]

@@ -1,0 +1,26 @@
+.series_home_container{
+    width: 100%;
+    height: 100%;
+    padding: 3%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.series_home_container_content{
+    height: 100%;
+    width: 100%;
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    overflow: scroll;
+}
+
+.series_home_container_content::-webkit-scrollbar {
+    display: none;
+  }
+  .series_home_container_content a{
+    height: 100%;
+    width: 100%;
+  }

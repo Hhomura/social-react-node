@@ -1,0 +1,46 @@
+.card_series_container{
+    border: 5px solid white;
+    width: 21%;
+    height: 46%;
+    display: flex;
+    align-items: end;
+    border-radius: 10px;
+    margin: 10px;
+    position: relative;
+}
+
+.card_series_container:hover .card_series_back{
+    opacity: 0.3;
+}
+
+.card_series_container:hover .card_series_words{
+    display: flex;
+}
+
+.card_series_back {
+    height: 100%;
+    width: 100%;
+    transition: 0.3s;
+}
+
+.card_series_back > img{
+    height: 100%;
+    width: 100%;
+}
+
+.card_series_words{
+    position: absolute;
+    display: none;
+    flex-direction: column;
+    /*border: 2px solid blue;*/
+}
+
+.card_series_words span{
+    font-size: 2vh;
+    font-weight: bold;
+    margin: 0;
+}
+.card_series_words p{
+    margin: 0;
+    margin: 10px;
+}
