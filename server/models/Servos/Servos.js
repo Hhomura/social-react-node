@@ -45,6 +45,11 @@ const servos = db.sequelize.define('servos', {
 })
 
 servos.belongsTo(series, {foreignKey: 'idFranquia', allowNull: false});
+servos.sync({force: true}).then(() =>{
+    console.log("Tabela criada")
+}).catch((error) =>{
+    console.log("erro na criação da tabela")
+})
 //servos.sync({force:true})
 
 module.exports = servos;

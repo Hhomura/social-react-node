@@ -18,6 +18,11 @@ const series = db.sequelize.define('series', {
     }
 })
 
+series.sync({force: true}).then(() =>{
+    console.log("Tabela criada")
+}).catch((error) =>{
+    console.log("erro na criação da tabela")
+})
 //series.sync({force: true})
 
 module.exports = series;

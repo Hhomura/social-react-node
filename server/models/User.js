@@ -28,6 +28,12 @@ const user = db.sequelize.define('users',{
     }
 })
 
-//user.sync({force:true})
+user.sync({force: true}).then(() =>{
+    console.log("Tabela criada")
+}).catch((error) =>{
+    console.log("erro na criação da tabela")
+})
+
+//user.sync({alter:true})
 
 module.exports = user;
